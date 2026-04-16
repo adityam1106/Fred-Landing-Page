@@ -1,6 +1,6 @@
 # Fred
 
-Premium landing page for Fred, an educational banking app for German families.
+Premium landing page for Fred, an educational banking app for Children.
 
 ## Run locally
 
