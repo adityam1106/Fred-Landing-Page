@@ -1,6 +1,6 @@
 # Fred
 
-Fred is a premium educational banking app concept for German families with children aged 8-18.
+Fred is a premium educational banking app concept for families with children aged 8-18.
 
 The product idea is simple:
 
