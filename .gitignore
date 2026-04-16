@@ -1,0 +1,12 @@
+node_modules/
+dist/
+
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
+
+vite-dev.log
+vite-dev.err.log
+
+.DS_Store
+Thumbs.db

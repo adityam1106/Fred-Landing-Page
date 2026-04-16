@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+html {
+  background: #ffffff;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui,
+    sans-serif;
+  background: #ffffff;
+  color: #1d1d1f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button {
+  font: inherit;
+}
