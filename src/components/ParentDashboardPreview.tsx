@@ -1,4 +1,8 @@
-import { motion } from "framer-motion";
+import { useGSAP } from "@gsap/react";
+import { motion, useReducedMotion } from "framer-motion";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef } from "react";
 import WaitlistButton from "./WaitlistButton";
 
 type ParentDashboardPreviewContent = {
@@ -10,9 +14,6 @@ type ParentDashboardPreviewContent = {
   dashboard: {
     childName: string;
     childMeta: string;
-    statusLabel: string;
-    statusValue: string;
-    statusMeta: string;
     allowanceLabel: string;
     allowanceValue: string;
     allowanceMeta: string;
@@ -46,6 +47,7 @@ type ParentDashboardPreviewContent = {
 };
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const fadeUp = {
   initial: { opacity: 0, y: 40, filter: "blur(6px)" },
@@ -101,6 +103,10 @@ function ParentDashboardPreview({
   language: "en" | "de";
   copy: ParentDashboardPreviewContent;
 }) {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const textRef = useRef<HTMLDivElement | null>(null);
+  const mockupRef = useRef<HTMLDivElement | null>(null);
+  const prefersReducedMotion = useReducedMotion();
   const childInitials = copy.dashboard.childName
     .split(" ")
     .slice(0, 2)
@@ -108,10 +114,60 @@ function ParentDashboardPreview({
     .join("");
   const stats = Array.isArray(copy.dashboard.stats) ? copy.dashboard.stats : [];
 
+  useGSAP(
+    () => {
+      const section = sectionRef.current;
+      const text = textRef.current;
+      const mockup = mockupRef.current;
+
+      if (!section || !text || !mockup || prefersReducedMotion) {
+        return;
+      }
+
+      const timeline = gsap.timeline({
+        defaults: { ease: "none" },
+        scrollTrigger: {
+          trigger: section,
+          start: "top 80%",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+
+      timeline.to(
+        text,
+        {
+          y: -28,
+          force3D: true,
+        },
+        0,
+      );
+
+      timeline.to(
+        mockup,
+        {
+          y: -54,
+          rotation: -0.6,
+          transformOrigin: "50% 18%",
+          force3D: true,
+        },
+        0,
+      );
+    },
+    { scope: sectionRef, dependencies: [prefersReducedMotion], revertOnUpdate: true },
+  );
+
   return (
-    <section id="for-parents" data-language={language} className="bg-white px-5 py-16 sm:px-6 sm:py-20">
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 sm:gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:gap-16">
-        <motion.div {...fadeUp} className="max-w-xl">
+    <section
+      id="for-parents"
+      ref={sectionRef}
+      data-language={language}
+      className="relative overflow-hidden bg-white px-5 py-20 sm:px-6 sm:py-24"
+    >
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-36 bg-[linear-gradient(180deg,rgba(245,245,247,0.9)_0%,rgba(255,255,255,0)_100%)]" />
+
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 sm:gap-12 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:items-start lg:gap-16">
+        <motion.div ref={textRef} {...fadeUp} className="max-w-xl will-change-transform lg:sticky lg:top-28">
           <div className="text-left font-mono text-[11px] uppercase tracking-[0.2em] text-[#6E6E73]">
             {copy.label}
           </div>
@@ -122,13 +178,18 @@ function ParentDashboardPreview({
 
           <p className="mt-5 text-[16px] leading-relaxed text-[#6E6E73] sm:text-[17px]">{copy.description}</p>
 
-          <div className="mt-8 grid gap-3 sm:gap-4 md:grid-cols-2">
+          <div className="mt-8 rounded-[28px] border border-black/[0.06] bg-[#F8F8FA] p-2.5 sm:mt-9 sm:p-3">
+            <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
             {copy.bullets.map((bullet) => (
-              <div key={bullet} className="flex gap-3 rounded-2xl bg-[#F5F5F7] px-4 py-4">
+                <div
+                  key={bullet}
+                  className="flex gap-3 rounded-2xl border border-black/[0.04] bg-white px-4 py-4 shadow-[0_12px_24px_rgba(15,23,42,0.03)]"
+                >
                 <BulletIcon />
-                <p className="text-[14px] leading-relaxed text-[#1D1D1F]">{bullet}</p>
-              </div>
+                  <p className="text-[14px] leading-relaxed text-[#1D1D1F]">{bullet}</p>
+                </div>
             ))}
+            </div>
           </div>
 
           <WaitlistButton
@@ -138,17 +199,20 @@ function ParentDashboardPreview({
         </motion.div>
 
         <motion.div
-          className="rounded-3xl border border-black/[0.06] bg-[#F5F5F7] p-3 shadow-[0_30px_80px_rgba(0,0,0,0.08)] sm:p-5"
+          ref={mockupRef}
+          className="relative rounded-[32px] border border-black/[0.06] bg-[linear-gradient(180deg,#fbfbfc_0%,#f2f3f5_100%)] p-3 shadow-[0_36px_90px_rgba(15,23,42,0.12)] will-change-transform sm:p-5 lg:p-6"
           variants={dashboardContainer}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
         >
+          <div className="pointer-events-none absolute inset-x-10 top-4 h-20 rounded-full bg-[#0071E3]/[0.06] blur-3xl" />
+
           <motion.div
             variants={dashboardItem}
-            className="rounded-[28px] border border-black/[0.04] bg-white px-4 py-4 shadow-[0_12px_30px_rgba(0,0,0,0.04)] sm:px-5"
+            className="relative rounded-[28px] border border-black/[0.04] bg-white px-4 py-4 shadow-[0_12px_30px_rgba(0,0,0,0.04)] sm:px-5"
           >
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#0071E3]/10 text-[15px] font-semibold text-[#0071E3]">
                   {childInitials}
@@ -159,13 +223,8 @@ function ParentDashboardPreview({
                 </div>
               </div>
 
-              <div className="text-left sm:text-right">
-                <div className="inline-flex items-center gap-2 rounded-full bg-[#34C759]/10 px-3 py-1.5 text-[12px] font-medium text-[#1D1D1F]">
-                  <span className="h-2 w-2 rounded-full bg-[#34C759]" aria-hidden="true" />
-                  {copy.dashboard.statusLabel}
-                </div>
-                <div className="mt-2 text-[14px] font-semibold text-[#1D1D1F]">{copy.dashboard.statusValue}</div>
-                <div className="mt-1 text-[12px] text-[#6E6E73]">{copy.dashboard.statusMeta}</div>
+              <div className="rounded-full border border-black/[0.06] bg-[#F5F5F7] px-3 py-1.5 text-[12px] font-medium text-[#1D1D1F]">
+                {copy.dashboard.controlsEnabledLabel}
               </div>
             </div>
           </motion.div>
@@ -271,7 +330,10 @@ function ParentDashboardPreview({
             </motion.div>
           </div>
 
-          <motion.div variants={dashboardItem} className="mt-3 rounded-2xl bg-[#1D1D1F] p-4 text-white sm:mt-4 sm:p-5">
+          <motion.div
+            variants={dashboardItem}
+            className="mt-3 rounded-2xl bg-[linear-gradient(135deg,#1D1D1F_0%,#262629_100%)] p-4 text-white sm:mt-4 sm:p-5"
+          >
             <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
               <div>
                 <div className="text-[12px] font-medium uppercase tracking-[0.14em] text-white/45">

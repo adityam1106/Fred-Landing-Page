@@ -1,4 +1,4 @@
-export const TALLY_URL = "https://tally.so/r/REPLACE_WITH_YOUR_ID";
+export const TALLY_URL = "https://tally.so/r/RGJpxQ";
 
 export default function WaitlistButton({
   label,

@@ -4,20 +4,20 @@ import { useEffect, useState } from "react";
 type FooterContent = {
   left: string;
   madeWith: string;
+  words: ReadonlyArray<string>;
   location: string;
 };
 
 function Footer({ content }: { content: FooterContent }) {
   const [wordIndex, setWordIndex] = useState(0);
-  const words = ["caffeine", "deadlines", "curiosity", "Ctrl+Z", "impostor syndrome"] as const;
 
   useEffect(() => {
     const interval = window.setInterval(() => {
-      setWordIndex((current) => (current + 1) % words.length);
+      setWordIndex((current) => (current + 1) % content.words.length);
     }, 3000);
 
     return () => window.clearInterval(interval);
-  }, [words.length]);
+  }, [content.words.length]);
 
   return (
     <footer className="border-t border-black/[0.06] bg-white px-5 py-8 sm:px-6 sm:py-10">
@@ -32,14 +32,14 @@ function Footer({ content }: { content: FooterContent }) {
             <span className="relative inline-flex min-w-[9.5ch] justify-start overflow-hidden">
               <AnimatePresence initial={false} mode="wait">
                 <motion.span
-                  key={words[wordIndex]}
+                  key={content.words[wordIndex]}
                   className="inline-block"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
                 >
-                  {words[wordIndex]}
+                  {content.words[wordIndex]}
                 </motion.span>
               </AnimatePresence>
             </span>

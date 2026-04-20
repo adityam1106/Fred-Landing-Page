@@ -15,8 +15,8 @@ const ease = [0.25, 0.1, 0.25, 1] as const;
 
 function HowItWorks({ content }: { content: HowItWorksContent }) {
   return (
-    <section id="how-it-works" className="bg-white px-5 py-16 sm:px-6 sm:py-20">
-      <div className="mx-auto max-w-6xl">
+    <section id="how-it-works" className="bg-white px-5 py-20 sm:px-6 sm:py-24">
+      <div className="mx-auto max-w-6xl border-t border-black/[0.06] pt-8 sm:pt-10">
         <div className="text-left font-mono text-[11px] uppercase tracking-[0.2em] text-[#6E6E73]">
           {content.label}
         </div>
@@ -25,11 +25,14 @@ function HowItWorks({ content }: { content: HowItWorksContent }) {
           {content.headline}
         </h2>
 
-        <div className="mt-12 grid grid-cols-1 gap-4 sm:mt-14 sm:gap-5 md:mt-16 md:grid-cols-3 md:gap-6">
+        <div className="mt-12 rounded-[32px] border border-black/[0.06] bg-[linear-gradient(180deg,#ffffff_0%,#f7f7f9_100%)] p-3 sm:mt-14 sm:p-4 md:mt-16">
+          <div className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-3 md:gap-6">
           {content.cards.map((card, index) => (
             <motion.article
               key={card.number}
-              className="relative flex flex-col gap-4 overflow-hidden rounded-3xl bg-[#F5F5F7] p-6 sm:p-7 lg:p-8"
+              className={`relative flex flex-col gap-4 overflow-hidden rounded-3xl border border-black/[0.04] bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.04)] sm:p-7 lg:p-8 ${
+                index === 1 ? "md:translate-y-8" : index === 2 ? "md:translate-y-4" : ""
+              }`}
               initial={{ opacity: 0, y: 40, filter: "blur(6px)" }}
               whileInView={{
                 opacity: 1,
@@ -57,6 +60,7 @@ function HowItWorks({ content }: { content: HowItWorksContent }) {
               </div>
             </motion.article>
           ))}
+          </div>
         </div>
       </div>
     </section>

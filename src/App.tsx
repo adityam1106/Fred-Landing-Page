@@ -22,6 +22,7 @@ import {
   useState,
   type ElementType,
 } from "react";
+import AgeEvolutionSection from "./components/AgeEvolutionSection";
 import HowItWorks from "./components/HowItWorks";
 import LessonShowcase from "./components/LessonShowcase";
 import WaitlistButton from "./components/WaitlistButton";
@@ -41,11 +42,78 @@ const copy = {
     badge: "Introducing Fred · Early access open",
     headline: "The bank that teaches your kids how money actually works.",
     subheadline:
-      "Fred gives children aged 8–18 a real debit card, pocket money management, and weekly financial lessons — unlocking their money only after they learn something new.",
+      "Fred gives children aged 8-18 a real debit card, pocket money management, and weekly financial lessons, unlocking their money only after they learn something new.",
     finePrint: "No credit card required · Launching in Germany first",
     navCta: "Get early access",
     primaryCta: "Join the waitlist",
     secondaryCta: "Learn more ↓",
+    phone: {
+      greeting: "Hi, Mila!",
+      mode: "Explorer Fred",
+      bankLabel: "My Jungle Bank",
+      locked: "Locked",
+      bananasSaved: "bananas saved",
+      details: "Details",
+      lessonLabel: "Level 4 • Expedition",
+      lessonTitle: "Saving Goals",
+      progressLabel: "Expedition progress",
+      cta: "Continue lesson →",
+      streakTitle: "7 day streak",
+      streakSubtitle: "Super Explorer!",
+      rewards: "Rewards",
+      nextReward: "Next: Golden Banana",
+      nav: {
+        home: "Jungle",
+        lessons: "Lessons",
+        bank: "Bank",
+      },
+    },
+    ageEvolution: {
+      headline: "Grows with your child",
+      subheadline: "From saving up that special LEGO set till understanding taxes and investments.",
+      stages: [
+        {
+          label: "Explorer",
+          ageRange: "Ages 8-10",
+          portraitSrc: "/fred-avatar-1.png",
+          wordmark: "Fred",
+          wordmarkColor: "#365E34",
+          labelColor: "#7E9957",
+          pillClassName: "bg-[#EEF2DD] text-[#7C9654]",
+          caption: "Curious beginnings. Learning through play.",
+        },
+        {
+          label: "Adventurer",
+          ageRange: "Ages 11-13",
+          portraitSrc: "/fred-avatar-2.png",
+          wordmark: "Fred",
+          wordmarkColor: "#2E6A49",
+          labelColor: "#2E6A49",
+          pillClassName: "bg-[#EEF2DD] text-[#6F8E57]",
+          caption: "Build confidence. Develop capability.",
+        },
+        {
+          label: "Navigator",
+          ageRange: "Ages 14-16",
+          portraitSrc: "/fred-avatar-3.png",
+          wordmark: "Fred",
+          wordmarkColor: "#204C7B",
+          labelColor: "#2F61A0",
+          pillClassName: "bg-[#E4EAF6] text-[#3A69A8]",
+          caption: "Take responsibility. Understand impact.",
+        },
+        {
+          label: "Independence",
+          ageRange: "Ages 17-18",
+          portraitSrc: "/fred-avatar-4.png",
+          wordmark: "Fred",
+          wordmarkColor: "#0F1F3A",
+          labelColor: "#18253E",
+          pillClassName: "bg-[#EAE3F6] text-[#6E58A9]",
+          caption: "A comprehensive understanding of taxes and finance. Ready for the future.",
+        },
+      ],
+    },
     howItWorks: {
       label: "01 / HOW IT WORKS",
       headline: "Simple for kids. Reassuring for parents.",
@@ -110,7 +178,7 @@ const copy = {
       description:
         "See what your child is learning, how they are spending, and which rules are guiding their money. Fred gives families oversight without turning every payment into a conversation.",
       bullets: [
-        "Track spending, lessons, and progress from one calm dashboard.",
+        "Track spending, lessons, and progress from one dashboard.",
         "Set rules that unlock money only after learning happens.",
         "Spot patterns early with real-time visibility and monthly summaries.",
         "Give independence gradually while staying fully informed.",
@@ -119,7 +187,6 @@ const copy = {
       dashboard: {
         childName: "Felix Schneider",
         childMeta: "Age 11 · Mainz",
-        statusLabel: "All systems healthy",
         statusValue: "Balance unlocked",
         statusMeta: "This week’s lesson passed",
         allowanceLabel: "Weekly pocket money",
@@ -176,27 +243,32 @@ const copy = {
         {
           question: "Is Fred a real bank?",
           answer:
-            "Fred is built on top of regulated banking infrastructure. Your child's money is protected up to €100,000 by deposit guarantee schemes — the same protection as any German bank account.",
+            "Fred is built on top of regulated banking infrastructure. Your child's money is protected up to €100,000 by deposit guarantee schemes, the same protection as any German bank account.",
         },
         {
           question: "What age is Fred for?",
           answer:
-            "Children aged 8 to 18. The app difficulty and UI adapt as your child grows — a 9 year old and a 17 year old see a completely different experience.",
+            "Children aged 8 to 18. The app difficulty and UI adapt dynamically as your child grows, a 9 year old and a 17 year old see a completely different experience.",
         },
         {
           question: "How does the lesson unlock work?",
           answer:
-            "Parents load money into the account. Kids watch a short educational video and pass a quick quiz. Once they pass, the money unlocks to their debit card. No pass, no spend — simple as that.",
+            "Parents load money into the account. Kids watch a short educational video and pass a quick quiz. Once they pass, the money unlocks to their debit card. No pass, no spend, simple as that.",
         },
         {
           question: "What does Fred teach?",
           answer:
-            "Progressive taxation, compound interest, stock market basics, budgeting, and more. Everything is built around the German financial context — tax brackets, DAX, ETFs, and Kindergeld.",
+            "Progressive taxation, compound interest, stock market basics, budgeting, and more. Everything is built around the German financial context with tax brackets, DAX, ETFs, and Kindergeld so that your child is ready to deal with real world financial problems",
         },
         {
           question: "How much does it cost?",
           answer:
             "€2.99 per month per family. One subscription covers all children in the household. No hidden fees, cancel anytime.",
+        },
+        {
+          question: "What if my child needs money urgently and doesn’t have time to complete a lesson?",
+          answer:
+            "In urgent situations, your child can use an “instant release” option once per week. This allows them to access their money immediately, even without completing a lesson first.\n\nTo keep the learning loop intact, they will need to complete an extra lesson afterwards. Parents can fully control and adjust this feature in the parental settings.",
         },
       ],
     },
@@ -219,11 +291,78 @@ const copy = {
     badge: "Fred vorstellen · Früher Zugang offen",
     headline: "Die Bank, die deinen Kindern beibringt, wie Geld wirklich funktioniert.",
     subheadline:
-      "Fred gibt Kindern von 8–18 Jahren eine echte Debitkarte, Taschengeldverwaltung und wöchentliche Finanzlektionen — das Geld wird erst freigeschaltet, wenn sie etwas Neues gelernt haben.",
+      "Fred gibt Kindern von 8-18 Jahren eine echte Debitkarte, Taschengeldverwaltung und wöchentliche Finanzlektionen — das Geld wird erst freigeschaltet, wenn sie etwas Neues gelernt haben.",
     finePrint: "Keine Kreditkarte erforderlich · Zuerst in Deutschland verfügbar",
     navCta: "Früher Zugang",
     primaryCta: "Zur Warteliste",
     secondaryCta: "Mehr erfahren ↓",
+    phone: {
+      greeting: "Hi, Mila!",
+      mode: "Entdecker Fred",
+      bankLabel: "Meine Dschungelbank",
+      locked: "Gesperrt",
+      bananasSaved: "Bananen gespart",
+      details: "Details",
+      lessonLabel: "Level 4 • Expedition",
+      lessonTitle: "Sparziele",
+      progressLabel: "Expeditionsfortschritt",
+      cta: "Lektion fortsetzen →",
+      streakTitle: "7 Tage Serie",
+      streakSubtitle: "Super Entdecker!",
+      rewards: "Belohnungen",
+      nextReward: "Als Nächstes: Goldene Banane",
+      nav: {
+        home: "Dschungel",
+        lessons: "Lektionen",
+        bank: "Bank",
+      },
+    },
+    ageEvolution: {
+      headline: "Wächst mit deinem Kind",
+      subheadline: "Vom Sparen für das besondere LEGO-Set bis hin zum Verständnis von Steuern und Investitionen.",
+      stages: [
+        {
+          label: "Entdecker",
+          ageRange: "8-10 Jahre",
+          portraitSrc: "/fred-avatar-1.png",
+          wordmark: "Fred",
+          wordmarkColor: "#365E34",
+          labelColor: "#7E9957",
+          pillClassName: "bg-[#EEF2DD] text-[#7C9654]",
+          caption: "Neugieriger Anfang. Lernen durch Spiel.",
+        },
+        {
+          label: "Abenteurer",
+          ageRange: "11-13 Jahre",
+          portraitSrc: "/fred-avatar-2.png",
+          wordmark: "Fred",
+          wordmarkColor: "#2E6A49",
+          labelColor: "#2E6A49",
+          pillClassName: "bg-[#EEF2DD] text-[#6F8E57]",
+          caption: "Selbstvertrauen aufbauen. Fähigkeiten entwickeln.",
+        },
+        {
+          label: "Navigator",
+          ageRange: "14-16 Jahre",
+          portraitSrc: "/fred-avatar-3.png",
+          wordmark: "Fred",
+          wordmarkColor: "#204C7B",
+          labelColor: "#2F61A0",
+          pillClassName: "bg-[#E4EAF6] text-[#3A69A8]",
+          caption: "Verantwortung übernehmen. Wirkung verstehen.",
+        },
+        {
+          label: "Unabhängig",
+          ageRange: "17-18 Jahre",
+          portraitSrc: "/fred-avatar-4.png",
+          wordmark: "Fred",
+          wordmarkColor: "#0F1F3A",
+          labelColor: "#18253E",
+          pillClassName: "bg-[#EAE3F6] text-[#6E58A9]",
+          caption: "Komplexes Verständnis von Steuern und Finanzen. Bereit für die Zukunft.",
+        },
+      ],
+    },
     howItWorks: {
       label: "01 / SO FUNKTIONIERT'S",
       headline: "Einfach für Kinder. Beruhigend für Eltern.",
@@ -375,6 +514,11 @@ const copy = {
           question: "Wie viel kostet Fred?",
           answer:
             "2,99 EUR pro Monat für die ganze Familie. Ein Abo deckt alle Kinder im Haushalt ab. Keine versteckten Gebühren, jederzeit kündbar.",
+        },
+        {
+          question: "Was ist, wenn mein Kind dringend Geld braucht und keine Zeit für eine Lektion hat?",
+          answer:
+            "In dringenden Fällen kann dein Kind einmal pro Woche die Funktion „Sofortfreigabe“ nutzen und sofort auf das Geld zugreifen – auch ohne vorher eine Lektion abzuschließen.\n\nDamit der Lerneffekt erhalten bleibt, muss anschließend eine zusätzliche Lektion abgeschlossen werden. Eltern können diese Funktion jederzeit in den Einstellungen steuern und anpassen.",
         },
       ],
     },
@@ -620,22 +764,11 @@ function App() {
         heroContent,
         {
           y: -52,
-          force3D: true,
         },
         0,
       );
 
-      timeline.to(
-        heroPhone,
-        {
-          y: -104,
-          scale: 0.945,
-          rotation: -1.4,
-          transformOrigin: "50% 18%",
-          force3D: true,
-        },
-        0,
-      );
+      timeline.to(heroPhone, { y: -96 }, 0);
 
       ScrollTrigger.refresh();
 
@@ -672,9 +805,9 @@ function App() {
           <button
             type="button"
             onClick={() => scrollToTarget("#hero")}
-            className="text-[1.45rem] font-extrabold tracking-tight text-[#1D1D1F] sm:text-2xl"
+            className="text-[1.6rem] font-black tracking-[-0.04em] text-[#1D1D1F] sm:text-[2.1rem]"
           >
-            fred
+            Fred
           </button>
 
           <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
@@ -777,18 +910,8 @@ function App() {
           className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden bg-white px-5 pb-16 pt-24 text-center sm:px-6 sm:pb-20 sm:pt-28"
         >
           <div className="mx-auto flex w-full max-w-6xl flex-col items-center">
-            <div ref={heroContentRef} className="flex flex-col items-center will-change-transform">
-              <motion.div {...revealProps(0)}>
-                <div className="inline-flex items-center gap-2 rounded-full bg-[#F5F5F7] px-3.5 py-1.5 text-[12px] font-medium text-[#6E6E73] sm:px-4 sm:text-[13px]">
-                  <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#34C759] opacity-75" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-[#34C759]" />
-                  </span>
-                  <AnimatedSwap value={activeCopy.badge} as="span" />
-                </div>
-              </motion.div>
-
-              <motion.div {...revealProps(0.15)} id="hero-copy" className="mt-7 max-w-[19rem] sm:mt-8 sm:max-w-4xl">
+            <div ref={heroContentRef} className="flex flex-col items-center">
+              <motion.div {...revealProps(0.15)} id="hero-copy" className="max-w-[19rem] sm:max-w-4xl">
                 <AnimatedSwap
                   value={activeCopy.headline}
                   as="h1"
@@ -831,110 +954,250 @@ function App() {
               </motion.div>
             </div>
 
-            <div ref={heroPhoneRef} className="mx-auto mt-14 w-full max-w-[250px] will-change-transform sm:mt-20 sm:max-w-[280px]">
+            <div ref={heroPhoneRef} className="relative mx-auto mt-14 w-full max-w-[250px] sm:mt-20 sm:max-w-[280px]">
+              <div className="pointer-events-none absolute inset-x-[-16%] top-[10%] h-[62%] rounded-full bg-[radial-gradient(circle_at_center,rgba(120,200,120,0.22),rgba(248,220,114,0.14)_36%,rgba(255,255,255,0)_72%)] blur-3xl" />
+              <div className="pointer-events-none absolute inset-x-[12%] bottom-[-8%] h-16 rounded-full bg-[#1D1D1F]/[0.12] blur-2xl" />
               <motion.div
                 id="hero-phone"
                 className="w-full"
-                initial={{ opacity: 0, y: 60, scale: 0.95, filter: "blur(6px)" }}
+                initial={{ opacity: 0, y: 60 }}
                 animate={{
                   opacity: 1,
                   y: 0,
-                  scale: 1,
-                  filter: "blur(0px)",
                   transition: { duration: 1.2, delay: 0.5, ease },
                 }}
               >
-                <div className="rounded-[40px] bg-[#1D1D1F] p-3 shadow-[0_40px_80px_rgba(0,0,0,0.15)]">
-                  <div className="flex aspect-[9/19.5] flex-col overflow-hidden rounded-[32px] bg-white">
-                    <div className="flex items-center justify-between px-4 pt-3">
-                      <span className="text-[11px] font-bold text-[#1D1D1F]">fred</span>
-                      <div className="flex items-center gap-1.5">
-                        <div className="h-[8px] w-[8px] rounded-full border border-[#1D1D1F]/60" />
-                        <div className="h-[8px] w-[12px] rounded-[3px] border border-[#1D1D1F]/60 p-[1px]">
-                          <div className="h-full w-[70%] rounded-[2px] bg-[#1D1D1F]" />
+                <div className="rounded-[42px] border border-black/[0.12] bg-[linear-gradient(180deg,#24231F_0%,#171611_100%)] p-[11px] shadow-[0_54px_112px_rgba(0,0,0,0.22)] antialiased [text-rendering:optimizeLegibility] [-webkit-font-smoothing:antialiased] [-moz-osx-font-smoothing:grayscale]">
+                  <div className="relative flex aspect-[9/19.5] flex-col overflow-hidden rounded-[31px] bg-[linear-gradient(180deg,#FBF8EC_0%,#FFFDF6_100%)]">
+                    <div className="pointer-events-none absolute inset-x-0 top-0 h-56 bg-[radial-gradient(circle_at_50%_8%,rgba(255,233,162,0.95),rgba(221,237,187,0.72)_34%,rgba(251,248,236,0)_78%)]" />
+                    <div className="pointer-events-none absolute inset-x-0 top-0 h-44 bg-[linear-gradient(180deg,rgba(51,92,42,0.16)_0%,rgba(150,189,103,0.08)_44%,rgba(255,255,255,0)_100%)]" />
+                    <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-40 overflow-hidden">
+                      <div className="absolute -left-10 -top-14 h-44 w-32 rotate-[-18deg] rounded-[48%_52%_56%_44%/62%_58%_42%_38%] bg-[#729C5A]/18 blur-[4px]" />
+                      <div className="absolute left-[3.7rem] -top-12 h-40 w-24 rotate-[8deg] rounded-[46%_54%_58%_42%/66%_58%_42%_34%] bg-[#2E5B2E]/24 blur-[2px]" />
+                      <div className="absolute right-[-1.2rem] -top-10 h-44 w-28 rotate-[18deg] rounded-[44%_56%_52%_48%/68%_56%_44%_32%] bg-[#466F39]/20 blur-[3px]" />
+                    </div>
+
+                    <div className="relative z-10 px-4 pt-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2.5 rounded-full bg-white/55 px-2.5 py-1.5 shadow-[0_10px_24px_rgba(87,120,56,0.08)]">
+                          <motion.div
+                            className="h-9 w-9 overflow-hidden rounded-full ring-2 ring-[#F5E6A4]/80"
+                            initial={{ opacity: 0, scale: 0.92 }}
+                            animate={{ opacity: 1, scale: 1, transition: { duration: 0.45, delay: 0.82, ease } }}
+                          >
+                            <img
+                              src="/fred-avatar-1.png"
+                              alt="Fred avatar"
+                              className="h-full w-full object-cover object-center"
+                            />
+                          </motion.div>
+                          <div className="text-left">
+                            <div className="text-[11px] font-medium leading-none text-[#47633A]">{activeCopy.phone.greeting}</div>
+                            <div className="mt-1 text-[11px] font-semibold leading-none text-[#1E4E2E]">
+                              {activeCopy.phone.mode}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#E8F4DA]/85 text-[#2E5B2E] shadow-[0_8px_18px_rgba(87,120,56,0.08)]">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path
+                              d="M12 21C12 21 18 17.4 18 11V7.5L12 5L6 7.5V11C6 17.4 12 21 12 21Z"
+                              stroke="currentColor"
+                              strokeWidth="1.7"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
                         </div>
                       </div>
                     </div>
 
-                    <div className="mx-3 mt-2 rounded-xl bg-[#34C759]/10 px-4 py-2.5 text-[13px] font-medium text-[#1D1D1F]">
-                      🔓 Balance unlocked · €12.50
+                    <div className="relative z-10 mx-3 mt-4 rounded-[30px] bg-[linear-gradient(145deg,#1E6A47_0%,#1A6A47_44%,#2D7A56_100%)] px-5 py-4 text-left shadow-[0_24px_44px_rgba(33,94,63,0.24)]">
+                      <div className="pointer-events-none absolute inset-x-5 top-3 h-10 rounded-full bg-white/10 blur-md" />
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#C8E6B7]">
+                            {activeCopy.phone.bankLabel}
+                          </div>
+                          <motion.div
+                            className="mt-2 text-[28px] font-bold leading-none tracking-tight text-white"
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0, transition: { duration: 0.45, delay: 0.92, ease } }}
+                          >
+                            €12.50
+                          </motion.div>
+                        </div>
+
+                        <div className="inline-flex items-center rounded-full bg-[#88B987]/26 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white/90">
+                          {activeCopy.phone.locked}
+                        </div>
+                      </div>
+
+                      <div className="mt-5 flex items-center justify-between">
+                        <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-2 text-[11px] font-medium text-[#EAF4D7]">
+                          <span className="text-[14px]">🍌</span>
+                          {`35 ${activeCopy.phone.bananasSaved}`}
+                        </div>
+                        <button
+                          type="button"
+                          className="rounded-full bg-[#FFD65C] px-4 py-2 text-[11px] font-semibold text-[#355327]"
+                        >
+                          {activeCopy.phone.details}
+                        </button>
+                      </div>
                     </div>
 
-                    <div className="mx-3 mt-3 rounded-2xl bg-[#F5F5F7] p-4 text-left">
-                      <div className="text-[14px] font-semibold text-[#1D1D1F]">What is a tax?</div>
-                      <div className="mt-1 text-[11px] text-[#6E6E73]">Lesson 01 · 3 min</div>
-                      <div className="mt-3 h-1.5 rounded-full bg-[#E5E5EA]">
-                        <div className="h-1.5 w-3/5 rounded-full bg-[#0071E3]" />
+                    <div className="relative z-10 mx-3 mt-4 rounded-[30px] bg-[linear-gradient(180deg,#FFF8DE_0%,#FFFDF0_100%)] px-5 py-4 text-left shadow-[0_20px_38px_rgba(199,179,97,0.14)]">
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#6C8A45]">
+                            {activeCopy.phone.lessonLabel}
+                          </div>
+                          <div className="mt-2 text-[16px] font-semibold leading-tight text-[#1D1D1F]">
+                            {activeCopy.phone.lessonTitle}
+                          </div>
+                        </div>
+                        <motion.div
+                          className="flex h-11 w-11 items-center justify-center rounded-full bg-[#DDF2C6] text-[#3F6E30] shadow-[0_10px_18px_rgba(115,158,76,0.10)]"
+                          animate={{ y: [0, -2, 0] }}
+                          transition={{ duration: 2.6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+                        >
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path
+                              d="M4 6.5C4 5.67 4.67 5 5.5 5H11V19H5.5C4.67 19 4 18.33 4 17.5V6.5Z"
+                              stroke="currentColor"
+                              strokeWidth="1.7"
+                              strokeLinejoin="round"
+                            />
+                            <path
+                              d="M20 6.5C20 5.67 19.33 5 18.5 5H13V19H18.5C19.33 19 20 18.33 20 17.5V6.5Z"
+                              stroke="currentColor"
+                              strokeWidth="1.7"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </motion.div>
                       </div>
-                      <button
+
+                      <div className="mt-4 flex items-center justify-between text-[11px] font-medium text-[#567243]">
+                        <span>{activeCopy.phone.progressLabel}</span>
+                        <span>78%</span>
+                      </div>
+                      <div className="mt-2 h-3 rounded-full bg-[#ECE5C6]">
+                        <motion.div
+                          className="h-3 rounded-full bg-[linear-gradient(90deg,#1D7B56_0%,#4FA866_68%,#8BCE69_100%)]"
+                          initial={{ width: 0 }}
+                          animate={{ width: "78%", transition: { duration: 0.8, delay: 1, ease: "easeOut" } }}
+                        />
+                      </div>
+
+                      <motion.button
                         type="button"
-                        className="mt-3 w-full rounded-full bg-[#0071E3] py-2 text-center text-[12px] font-medium text-white transition-colors duration-200 hover:bg-[#0077ED]"
+                        className="mt-5 w-full rounded-full bg-[#1F6E49] py-3.5 text-center text-[14px] font-semibold text-white shadow-[0_14px_28px_rgba(31,110,73,0.18)]"
+                        animate={{
+                          scale: [1, 1.02, 1],
+                          boxShadow: [
+                            "0 14px 28px rgba(31,110,73,0.18)",
+                            "0 18px 30px rgba(31,110,73,0.24)",
+                            "0 14px 28px rgba(31,110,73,0.18)",
+                          ],
+                        }}
+                        transition={{
+                          duration: 2.8,
+                          delay: 1.15,
+                          repeat: Number.POSITIVE_INFINITY,
+                          repeatDelay: 1.3,
+                          ease: "easeInOut",
+                        }}
                       >
-                        Watch lesson →
-                      </button>
+                        {activeCopy.phone.cta}
+                      </motion.button>
                     </div>
 
-                    <div className="mx-3 mt-3 flex gap-2">
-                      <div className="rounded-full bg-[#F5F5F7] px-3 py-1.5 text-[11px] text-[#6E6E73]">
-                        €34.50 total
+                    <div className="mx-3 mt-4 grid grid-cols-[1.05fr_0.95fr] gap-3">
+                      <div className="rounded-[26px] bg-[linear-gradient(180deg,#FFE08A_0%,#FFD965_100%)] px-4 py-4 text-left shadow-[0_18px_32px_rgba(245,198,74,0.16)]">
+                        <motion.div
+                          className="flex h-12 w-12 items-center justify-center rounded-full bg-[#FFF2BF] text-[22px] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]"
+                          initial={{ y: 0 }}
+                          animate={{ y: [0, -4, 0] }}
+                          transition={{ duration: 0.5, delay: 1.05, ease: "easeOut" }}
+                        >
+                          ⭐
+                        </motion.div>
+                        <div className="mt-4 text-[15px] font-semibold text-[#55411C]">{activeCopy.phone.streakTitle}</div>
+                        <div className="mt-1 text-[11px] font-medium text-[#775D22]">{activeCopy.phone.streakSubtitle}</div>
                       </div>
-                      <div className="rounded-full bg-[#F5F5F7] px-3 py-1.5 text-[11px] text-[#6E6E73]">
-                        3 lessons done
+
+                      <div className="rounded-[26px] bg-[linear-gradient(180deg,#F6F1DF_0%,#F2EDDE_100%)] px-4 py-4 text-left shadow-[0_16px_28px_rgba(15,23,42,0.05)]">
+                        <div className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#D8EDC6] text-[#2E8A54]">
+                          <span className="text-[15px]">$</span>
+                        </div>
+                        <div className="mt-4 text-[14px] font-semibold text-[#3A4530]">{activeCopy.phone.rewards}</div>
+                        <div className="mt-2 text-[11px] leading-relaxed text-[#6E6E73]">
+                          {activeCopy.phone.nextReward}
+                        </div>
                       </div>
                     </div>
 
-                    <div className="mt-4 px-4 text-left">
-                      <div className="text-[10px] font-medium text-[#6E6E73]">Recent activity</div>
-                      <div className="mt-2 flex items-center justify-between py-2">
-                        <div className="text-[11px] text-[#1D1D1F]">🛒 Supermarket</div>
-                        <div className="text-[11px] font-medium text-[#1D1D1F]">-€4.20</div>
+                    <div className="mt-auto px-3 pb-4 pt-4">
+                      <div className="flex items-center justify-between rounded-[26px] bg-[#EAF7E6]/90 px-4 py-3 text-[#476B3D] shadow-[0_12px_24px_rgba(87,120,56,0.06)]">
+                        <div className="flex flex-col items-center gap-1 text-[10px] font-semibold">
+                          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#147A58] text-white">
+                            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                              <path
+                                d="M4 10.5L12 4L20 10.5V19A1 1 0 0 1 19 20H15V14H9V20H5A1 1 0 0 1 4 19V10.5Z"
+                                stroke="currentColor"
+                                strokeWidth="1.7"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          </div>
+                          {activeCopy.phone.nav.home}
+                        </div>
+                        <div className="flex flex-col items-center gap-1 text-[10px] font-medium text-[#567A49]">
+                          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/70">
+                            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                              <path
+                                d="M4 6.5C4 5.67 4.67 5 5.5 5H11V19H5.5C4.67 19 4 18.33 4 17.5V6.5Z"
+                                stroke="currentColor"
+                                strokeWidth="1.7"
+                                strokeLinejoin="round"
+                              />
+                              <path
+                                d="M20 6.5C20 5.67 19.33 5 18.5 5H13V19H18.5C19.33 19 20 18.33 20 17.5V6.5Z"
+                                stroke="currentColor"
+                                strokeWidth="1.7"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          </div>
+                          {activeCopy.phone.nav.lessons}
+                        </div>
+                        <div className="flex flex-col items-center gap-1 text-[10px] font-medium text-[#567A49]">
+                          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/70">
+                            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                              <path
+                                d="M7 8H17M7 12H15M7 16H12"
+                                stroke="currentColor"
+                                strokeWidth="1.7"
+                                strokeLinecap="round"
+                              />
+                              <rect
+                                x="4"
+                                y="5"
+                                width="16"
+                                height="14"
+                                rx="3"
+                                stroke="currentColor"
+                                strokeWidth="1.7"
+                              />
+                            </svg>
+                          </div>
+                          {activeCopy.phone.nav.bank}
+                        </div>
                       </div>
-                      <div className="flex items-center justify-between py-2">
-                        <div className="text-[11px] text-[#1D1D1F]">🎮 App Store</div>
-                        <div className="text-[11px] font-medium text-[#1D1D1F]">-€1.99</div>
-                      </div>
-                      <div className="flex items-center justify-between py-2">
-                        <div className="text-[11px] text-[#1D1D1F]">💰 Pocket money</div>
-                        <div className="text-[11px] font-medium text-[#34C759]">+€10.00</div>
-                      </div>
-                    </div>
-
-                    <div className="mt-auto flex items-center justify-center gap-8 px-6 pb-6 pt-4 text-[#6E6E73]">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                        <path
-                          d="M4 10.5L12 4L20 10.5V19A1 1 0 0 1 19 20H15V14H9V20H5A1 1 0 0 1 4 19V10.5Z"
-                          stroke="#0071E3"
-                          strokeWidth="1.7"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                        <rect
-                          x="4"
-                          y="6"
-                          width="16"
-                          height="12"
-                          rx="2.5"
-                          stroke="currentColor"
-                          strokeWidth="1.7"
-                        />
-                        <path d="M4 10H20" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
-                      </svg>
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                        <path
-                          d="M12 8.75A3.25 3.25 0 1 0 12 15.25A3.25 3.25 0 1 0 12 8.75Z"
-                          stroke="currentColor"
-                          strokeWidth="1.7"
-                        />
-                        <path
-                          d="M19 12A7 7 0 0 0 18.92 10.95L21 9.3L18.7 5.3L16.2 6.1A7 7 0 0 0 14.35 5.05L14 2.5H10L9.65 5.05A7 7 0 0 0 7.8 6.1L5.3 5.3L3 9.3L5.08 10.95A7 7 0 0 0 5 12C5 12.36 5.03 12.7 5.08 13.05L3 14.7L5.3 18.7L7.8 17.9A7 7 0 0 0 9.65 18.95L10 21.5H14L14.35 18.95A7 7 0 0 0 16.2 17.9L18.7 18.7L21 14.7L18.92 13.05C18.97 12.7 19 12.36 19 12Z"
-                          stroke="currentColor"
-                          strokeWidth="1.4"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
                     </div>
                   </div>
                 </div>
@@ -969,6 +1232,7 @@ function App() {
           </motion.div>
         </section>
 
+        <AgeEvolutionSection content={activeCopy.ageEvolution} />
         <HowItWorks content={activeCopy.howItWorks} />
         <LessonShowcase content={activeCopy.lessonShowcase} />
         <Suspense fallback={<DeferredSectionsFallback />}>

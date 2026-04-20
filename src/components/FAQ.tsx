@@ -16,16 +16,19 @@ function FAQ({ content }: { content: FAQContent }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="mx-auto max-w-6xl bg-white px-5 py-16 sm:px-6 sm:py-20">
-      <div className="text-left font-mono text-[11px] uppercase tracking-[0.2em] text-[#6E6E73]">
-        {content.label}
-      </div>
+    <section className="mx-auto max-w-6xl bg-white px-5 py-20 sm:px-6 sm:py-24">
+      <div className="grid gap-10 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:items-start lg:gap-16">
+        <div className="lg:sticky lg:top-28">
+          <div className="text-left font-mono text-[11px] uppercase tracking-[0.2em] text-[#6E6E73]">
+            {content.label}
+          </div>
 
-      <h2 className="mt-4 text-[clamp(1.95rem,8vw,3.5rem)] font-bold leading-[1.08] tracking-tight text-[#1D1D1F]">
-        {content.headline}
-      </h2>
+          <h2 className="mt-4 text-[clamp(1.95rem,8vw,3.5rem)] font-bold leading-[1.08] tracking-tight text-[#1D1D1F]">
+            {content.headline}
+          </h2>
+        </div>
 
-      <div className="mx-auto mt-12 flex max-w-3xl flex-col gap-3 sm:mt-16 sm:gap-4">
+        <div className="mx-auto flex w-full max-w-3xl flex-col gap-3 sm:gap-4">
         {content.items.map((item, index) => {
           const isOpen = openIndex === index;
 
@@ -52,7 +55,7 @@ function FAQ({ content }: { content: FAQContent }) {
                 className="flex w-full cursor-pointer items-center justify-between px-5 py-4.5 text-left transition-colors duration-200 hover:bg-[#EBEBF0] sm:px-6 sm:py-5"
                 aria-expanded={isOpen}
               >
-                <span className="pr-4 text-[14px] font-medium leading-relaxed text-[#1D1D1F] sm:text-[15px]">{item.question}</span>
+                <span className="pr-4 text-[15px] font-medium leading-relaxed text-[#1D1D1F] sm:text-[16px]">{item.question}</span>
                 <motion.svg
                   width="18"
                   height="18"
@@ -82,13 +85,14 @@ function FAQ({ content }: { content: FAQContent }) {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="overflow-hidden"
                   >
-                    <p className="px-5 pb-5 text-[14px] leading-relaxed text-[#6E6E73] sm:px-6">{item.answer}</p>
+                    <p className="px-5 pb-5 text-[15px] leading-relaxed text-[#6E6E73] sm:px-6 sm:text-[15.5px]">{item.answer}</p>
                   </motion.div>
                 ) : null}
               </AnimatePresence>
             </motion.div>
           );
         })}
+        </div>
       </div>
     </section>
   );
