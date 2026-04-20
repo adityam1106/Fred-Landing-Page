@@ -70,7 +70,7 @@ const copy = {
     },
     ageEvolution: {
       headline: "Grows with your child",
-      subheadline: "From saving up that special LEGO set till understanding taxes and investments.",
+      subheadline: "From saving up that special LEGO set to understanding taxes and investments.",
       stages: [
         {
           label: "Explorer",
