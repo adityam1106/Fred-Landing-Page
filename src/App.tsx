@@ -22,7 +22,7 @@ import {
   useState,
   type ElementType,
 } from "react";
-import AgeEvolutionSection from "./components/AgeEvolutionSection";
+import AgeEvolutionStory from "./components/AgeEvolutionStory";
 import HowItWorks from "./components/HowItWorks";
 import LessonShowcase from "./components/LessonShowcase";
 import WaitlistButton from "./components/WaitlistButton";
@@ -72,6 +72,8 @@ const copy = {
     ageEvolution: {
       headline: "Grows with your child",
       subheadline: "From saving up that special LEGO set to understanding taxes and investments.",
+      learnHeading: "What you'll learn",
+      learnFooter: "+ more",
       stages: [
         {
           label: "Explorer",
@@ -82,6 +84,12 @@ const copy = {
           labelColor: "#7E9957",
           pillClassName: "bg-[#EEF2DD] text-[#7C9654]",
           caption: "Curious beginnings. Learning through play.",
+          topics: [
+            "Saving for a goal",
+            "Needs vs. wants",
+            "How money is earned",
+            "Spending wisely",
+          ],
         },
         {
           label: "Adventurer",
@@ -92,6 +100,12 @@ const copy = {
           labelColor: "#2E6A49",
           pillClassName: "bg-[#EEF2DD] text-[#6F8E57]",
           caption: "Build confidence. Develop capability.",
+          topics: [
+            "Budgeting basics",
+            "Smart spending choices",
+            "Setting financial goals",
+            "Delayed gratification",
+          ],
         },
         {
           label: "Navigator",
@@ -102,6 +116,12 @@ const copy = {
           labelColor: "#2F61A0",
           pillClassName: "bg-[#E4EAF6] text-[#3A69A8]",
           caption: "Take responsibility. Understand impact.",
+          topics: [
+            "How banks work",
+            "Interest & saving growth",
+            "Basics of investing",
+            "Digital payments & safety",
+          ],
         },
         {
           label: "Independence",
@@ -112,6 +132,12 @@ const copy = {
           labelColor: "#18253E",
           pillClassName: "bg-[#EAE3F6] text-[#6E58A9]",
           caption: "A comprehensive understanding of taxes and finance. Ready for the future.",
+          topics: [
+            "Taxes and income basics",
+            "Long-term investing",
+            "Credit responsibility",
+            "Financial planning",
+          ],
         },
       ],
     },
@@ -322,6 +348,8 @@ const copy = {
     ageEvolution: {
       headline: "Wächst mit deinem Kind",
       subheadline: "Vom Sparen für das besondere LEGO-Set bis hin zum Verständnis von Steuern und Investitionen.",
+      learnHeading: "Das lernst du",
+      learnFooter: "+ mehr",
       stages: [
         {
           label: "Entdecker",
@@ -332,6 +360,12 @@ const copy = {
           labelColor: "#7E9957",
           pillClassName: "bg-[#EEF2DD] text-[#7C9654]",
           caption: "Neugieriger Anfang. Lernen durch Spiel.",
+          topics: [
+            "Sparen für ein Ziel",
+            "Bedürfnisse vs. Wünsche",
+            "Wie man Geld verdient",
+            "Klug ausgeben",
+          ],
         },
         {
           label: "Abenteurer",
@@ -342,6 +376,12 @@ const copy = {
           labelColor: "#2E6A49",
           pillClassName: "bg-[#EEF2DD] text-[#6F8E57]",
           caption: "Selbstvertrauen aufbauen. Fähigkeiten entwickeln.",
+          topics: [
+            "Grundlagen des Budgetierens",
+            "Clevere Ausgaben",
+            "Finanzielle Ziele setzen",
+            "Belohnung aufschieben",
+          ],
         },
         {
           label: "Navigator",
@@ -352,6 +392,12 @@ const copy = {
           labelColor: "#2F61A0",
           pillClassName: "bg-[#E4EAF6] text-[#3A69A8]",
           caption: "Verantwortung übernehmen. Wirkung verstehen.",
+          topics: [
+            "Wie Banken funktionieren",
+            "Zinsen und Sparwachstum",
+            "Grundlagen des Investierens",
+            "Digitale Zahlungen und Sicherheit",
+          ],
         },
         {
           label: "Unabhängig",
@@ -362,6 +408,12 @@ const copy = {
           labelColor: "#18253E",
           pillClassName: "bg-[#EAE3F6] text-[#6E58A9]",
           caption: "Komplexes Verständnis von Steuern und Finanzen. Bereit für die Zukunft.",
+          topics: [
+            "Grundlagen zu Steuern und Einkommen",
+            "Langfristiges Investieren",
+            "Verantwortung bei Krediten",
+            "Finanzplanung",
+          ],
         },
       ],
     },
@@ -955,27 +1007,27 @@ function App() {
               <motion.div
                 initial={{ opacity: 0, x: 14, y: -8 }}
                 animate={{ opacity: 1, x: 0, y: 0, transition: { duration: 0.65, delay: 0.95, ease } }}
-                className="pointer-events-none absolute left-full top-4 z-20 ml-8 hidden lg:flex lg:flex-col lg:items-end xl:top-6 xl:ml-10"
+                className="pointer-events-none absolute left-full top-1 z-20 ml-10 hidden lg:flex lg:flex-col lg:items-end xl:top-3 xl:ml-14"
               >
-                <span className="whitespace-nowrap text-xs font-medium tracking-[0.01em] text-[#6E6E73]/90">
+                <span className="whitespace-nowrap text-xs font-normal tracking-[0.01em] text-[#6E6E73]/84">
                   {activeCopy.phone.annotation}
                 </span>
                 <svg
-                  className="-mt-1"
-                  width="126"
-                  height="68"
-                  viewBox="0 0 126 68"
+                  className="-mt-0.5"
+                  width="118"
+                  height="56"
+                  viewBox="0 0 118 56"
                   fill="none"
                   aria-hidden="true"
                 >
                   <path
-                    d="M114 13C94 13 76 17 60 28C44 39 28 49 15 55"
+                    d="M106 11C90 11 74 14 61 22C46 31 32 39 17 45"
                     stroke="rgba(110,110,115,0.62)"
                     strokeWidth="1.5"
                     strokeLinecap="round"
                   />
                   <path
-                    d="M21 50L14 55L23 57"
+                    d="M22 40L16 45L24 47"
                     stroke="rgba(110,110,115,0.62)"
                     strokeWidth="1.5"
                     strokeLinecap="round"
@@ -984,8 +1036,9 @@ function App() {
                 </svg>
               </motion.div>
 
-              <div className="pointer-events-none absolute inset-x-[-20%] top-[8%] h-[66%] rounded-full bg-[radial-gradient(circle_at_center,rgba(120,200,120,0.22),rgba(247,220,118,0.16)_34%,rgba(255,255,255,0)_70%)] blur-[56px]" />
-              <div className="pointer-events-none absolute inset-x-[8%] bottom-[-10%] h-20 rounded-full bg-[#1D1D1F]/[0.14] blur-[30px]" />
+              <div className="pointer-events-none absolute inset-x-[-20%] top-[10%] h-[64%] rounded-full bg-[radial-gradient(circle_at_center,rgba(120,200,120,0.20),rgba(247,220,118,0.14)_36%,rgba(255,255,255,0)_70%)] blur-[60px]" />
+              <div className="pointer-events-none absolute inset-x-[6%] bottom-[-11%] h-20 rounded-full bg-[#1D1D1F]/[0.12] blur-[34px]" />
+              <div className="pointer-events-none absolute inset-x-[18%] bottom-[-6%] h-9 rounded-full bg-[#1D1D1F]/[0.10] blur-[18px]" />
               <motion.div
                 id="hero-phone"
                 className="w-full"
@@ -996,14 +1049,14 @@ function App() {
                   transition: { duration: 1.2, delay: 0.5, ease },
                 }}
               >
-                <div className="rounded-[42px] border border-black/[0.12] bg-[linear-gradient(180deg,#24231F_0%,#171611_100%)] p-[11px] shadow-[0_58px_124px_rgba(0,0,0,0.24)] antialiased [text-rendering:optimizeLegibility] [-webkit-font-smoothing:antialiased] [-moz-osx-font-smoothing:grayscale]">
+                <div className="rounded-[42px] border border-black/[0.12] bg-[linear-gradient(180deg,#24231F_0%,#171611_100%)] p-[11px] shadow-[0_62px_124px_rgba(0,0,0,0.24)] antialiased [text-rendering:optimizeLegibility] [-webkit-font-smoothing:antialiased] [-moz-osx-font-smoothing:grayscale]">
                   <div className="relative flex aspect-[9/19.5] flex-col overflow-hidden rounded-[31px] bg-[linear-gradient(180deg,#FBF8EC_0%,#FFFDF6_100%)]">
                     <div className="pointer-events-none absolute inset-x-0 top-0 h-56 bg-[radial-gradient(circle_at_50%_8%,rgba(255,233,162,0.96),rgba(221,237,187,0.74)_34%,rgba(251,248,236,0)_78%)]" />
-                    <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[linear-gradient(180deg,rgba(36,72,31,0.26)_0%,rgba(76,120,56,0.18)_34%,rgba(255,255,255,0)_100%)]" />
+                    <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[linear-gradient(180deg,rgba(33,65,28,0.30)_0%,rgba(65,102,49,0.18)_32%,rgba(255,255,255,0)_100%)]" />
+                    <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-[linear-gradient(180deg,rgba(29,63,26,0.32)_0%,rgba(29,63,26,0.10)_58%,rgba(29,63,26,0)_100%)]" />
                     <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-40 overflow-hidden">
-                      <div className="absolute -left-12 -top-20 h-44 w-44 rotate-[-16deg] rounded-[42%_58%_44%_56%/62%_42%_58%_38%] bg-[#335A2F]/18 blur-[6px]" />
-                      <div className="absolute left-[3.55rem] -top-16 h-36 w-28 rotate-[6deg] rounded-[44%_56%_48%_52%/64%_44%_56%_36%] bg-[#5C8747]/14 blur-[4px]" />
-                      <div className="absolute right-[-1.7rem] -top-[4.8rem] h-44 w-40 rotate-[18deg] rounded-[44%_56%_50%_50%/66%_46%_54%_34%] bg-[#2D5C2A]/22 blur-[5px]" />
+                      <div className="absolute -left-[4.8rem] -top-[5.8rem] h-44 w-44 rotate-[-14deg] rounded-[42%_58%_44%_56%/62%_42%_58%_38%] bg-[#335A2F]/14 blur-[10px]" />
+                      <div className="absolute right-[-2.4rem] -top-[5.4rem] h-44 w-44 rotate-[16deg] rounded-[44%_56%_50%_50%/66%_46%_54%_34%] bg-[#2D5C2A]/16 blur-[10px]" />
                     </div>
 
                     <div className="relative z-10 px-4 pt-4">
@@ -1042,7 +1095,7 @@ function App() {
                       </div>
                     </div>
 
-                    <div className="relative z-10 mx-3 mt-4 rounded-[30px] bg-[linear-gradient(145deg,#1E6A47_0%,#1D6B46_48%,#2F7E58_100%)] px-5 py-4 text-left shadow-[0_20px_38px_rgba(33,94,63,0.20)]">
+                    <div className="relative z-10 mx-3 mt-4 rounded-[30px] bg-[linear-gradient(145deg,#1E6A47_0%,#1D6B46_48%,#2F7E58_100%)] px-5 py-4 text-left shadow-[0_18px_34px_rgba(33,94,63,0.18)]">
                       <div className="pointer-events-none absolute inset-x-5 top-3 h-10 rounded-full bg-white/10 blur-md" />
                       <div className="flex items-start justify-between gap-3">
                         <div>
@@ -1077,7 +1130,7 @@ function App() {
                       </div>
                     </div>
 
-                    <div className="relative z-10 mx-3 mt-4 rounded-[32px] bg-[linear-gradient(180deg,#FFF8DD_0%,#FFFDF0_100%)] px-5 py-5 text-left shadow-[0_24px_42px_rgba(199,179,97,0.18)] ring-1 ring-[#F4E7B1]/70">
+                    <div className="relative z-10 mx-3 mt-4 rounded-[32px] bg-[linear-gradient(180deg,#FFF8DD_0%,#FFFDF0_100%)] px-5 py-5 text-left shadow-[0_26px_46px_rgba(199,179,97,0.20)] ring-1 ring-[#F4E7B1]/70">
                       <div className="flex items-start justify-between gap-3">
                         <div>
                           <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#6C8A45]">
@@ -1158,7 +1211,7 @@ function App() {
                         <div className="mt-1 text-[11px] font-medium text-[#775D22]">{activeCopy.phone.streakSubtitle}</div>
                       </div>
 
-                      <div className="rounded-[26px] bg-[linear-gradient(180deg,#F6F1DF_0%,#F2EDDE_100%)] px-4 py-4 text-left shadow-[0_14px_24px_rgba(15,23,42,0.04)]">
+                      <div className="rounded-[26px] bg-[linear-gradient(180deg,#F6F1DF_0%,#F2EDDE_100%)] px-4 py-4 text-left shadow-[0_10px_20px_rgba(15,23,42,0.035)]">
                         <div className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#D8EDC6] text-[#2E8A54]">
                           <span className="text-[15px]">$</span>
                         </div>
@@ -1261,7 +1314,7 @@ function App() {
           </motion.div>
         </section>
 
-        <AgeEvolutionSection content={activeCopy.ageEvolution} />
+        <AgeEvolutionStory content={activeCopy.ageEvolution} />
         <HowItWorks content={activeCopy.howItWorks} />
         <LessonShowcase content={activeCopy.lessonShowcase} />
         <Suspense fallback={<DeferredSectionsFallback />}>
