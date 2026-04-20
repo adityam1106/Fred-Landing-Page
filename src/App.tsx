@@ -50,6 +50,7 @@ const copy = {
     phone: {
       greeting: "Hi, Mila!",
       mode: "Explorer Fred",
+      annotation: "Representative Explorer preview",
       bankLabel: "My Jungle Bank",
       locked: "Locked",
       bananasSaved: "bananas saved",
@@ -299,6 +300,7 @@ const copy = {
     phone: {
       greeting: "Hi, Mila!",
       mode: "Entdecker Fred",
+      annotation: "Beispielhafte Explorer-Vorschau",
       bankLabel: "Meine Dschungelbank",
       locked: "Gesperrt",
       bananasSaved: "Bananen gespart",
@@ -672,7 +674,7 @@ function App() {
   const heroRef = useRef<HTMLElement | null>(null);
   const heroContentRef = useRef<HTMLDivElement | null>(null);
   const heroPhoneRef = useRef<HTMLDivElement | null>(null);
-  const { scrollY, scrollYProgress } = useScroll();
+  const { scrollY } = useScroll();
   const prefersReducedMotion = useReducedMotion();
 
   const activeCopy = useMemo(() => copy[language], [language]);
@@ -790,11 +792,6 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white text-[#1D1D1F]" style={{ fontFamily: fontStack }}>
-      <motion.div
-        className="fixed left-0 top-0 z-[100] h-[2px] w-full origin-left bg-[#0071E3]"
-        style={{ scaleX: scrollYProgress }}
-      />
-
       <header
         className={`fixed inset-x-0 top-0 z-50 h-14 transition-all duration-[400ms] md:h-[52px] ${scrolled
           ? "border-b border-black/[0.06] bg-white/80 backdrop-blur-xl"
@@ -955,8 +952,40 @@ function App() {
             </div>
 
             <div ref={heroPhoneRef} className="relative mx-auto mt-14 w-full max-w-[250px] sm:mt-20 sm:max-w-[280px]">
-              <div className="pointer-events-none absolute inset-x-[-16%] top-[10%] h-[62%] rounded-full bg-[radial-gradient(circle_at_center,rgba(120,200,120,0.22),rgba(248,220,114,0.14)_36%,rgba(255,255,255,0)_72%)] blur-3xl" />
-              <div className="pointer-events-none absolute inset-x-[12%] bottom-[-8%] h-16 rounded-full bg-[#1D1D1F]/[0.12] blur-2xl" />
+              <motion.div
+                initial={{ opacity: 0, x: 14, y: -8 }}
+                animate={{ opacity: 1, x: 0, y: 0, transition: { duration: 0.65, delay: 0.95, ease } }}
+                className="pointer-events-none absolute left-full top-4 z-20 ml-8 hidden lg:flex lg:flex-col lg:items-end xl:top-6 xl:ml-10"
+              >
+                <span className="whitespace-nowrap text-xs font-medium tracking-[0.01em] text-[#6E6E73]/90">
+                  {activeCopy.phone.annotation}
+                </span>
+                <svg
+                  className="-mt-1"
+                  width="126"
+                  height="68"
+                  viewBox="0 0 126 68"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M114 13C94 13 76 17 60 28C44 39 28 49 15 55"
+                    stroke="rgba(110,110,115,0.62)"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M21 50L14 55L23 57"
+                    stroke="rgba(110,110,115,0.62)"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </motion.div>
+
+              <div className="pointer-events-none absolute inset-x-[-20%] top-[8%] h-[66%] rounded-full bg-[radial-gradient(circle_at_center,rgba(120,200,120,0.22),rgba(247,220,118,0.16)_34%,rgba(255,255,255,0)_70%)] blur-[56px]" />
+              <div className="pointer-events-none absolute inset-x-[8%] bottom-[-10%] h-20 rounded-full bg-[#1D1D1F]/[0.14] blur-[30px]" />
               <motion.div
                 id="hero-phone"
                 className="w-full"
@@ -967,19 +996,19 @@ function App() {
                   transition: { duration: 1.2, delay: 0.5, ease },
                 }}
               >
-                <div className="rounded-[42px] border border-black/[0.12] bg-[linear-gradient(180deg,#24231F_0%,#171611_100%)] p-[11px] shadow-[0_54px_112px_rgba(0,0,0,0.22)] antialiased [text-rendering:optimizeLegibility] [-webkit-font-smoothing:antialiased] [-moz-osx-font-smoothing:grayscale]">
+                <div className="rounded-[42px] border border-black/[0.12] bg-[linear-gradient(180deg,#24231F_0%,#171611_100%)] p-[11px] shadow-[0_58px_124px_rgba(0,0,0,0.24)] antialiased [text-rendering:optimizeLegibility] [-webkit-font-smoothing:antialiased] [-moz-osx-font-smoothing:grayscale]">
                   <div className="relative flex aspect-[9/19.5] flex-col overflow-hidden rounded-[31px] bg-[linear-gradient(180deg,#FBF8EC_0%,#FFFDF6_100%)]">
-                    <div className="pointer-events-none absolute inset-x-0 top-0 h-56 bg-[radial-gradient(circle_at_50%_8%,rgba(255,233,162,0.95),rgba(221,237,187,0.72)_34%,rgba(251,248,236,0)_78%)]" />
-                    <div className="pointer-events-none absolute inset-x-0 top-0 h-44 bg-[linear-gradient(180deg,rgba(51,92,42,0.16)_0%,rgba(150,189,103,0.08)_44%,rgba(255,255,255,0)_100%)]" />
+                    <div className="pointer-events-none absolute inset-x-0 top-0 h-56 bg-[radial-gradient(circle_at_50%_8%,rgba(255,233,162,0.96),rgba(221,237,187,0.74)_34%,rgba(251,248,236,0)_78%)]" />
+                    <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[linear-gradient(180deg,rgba(36,72,31,0.26)_0%,rgba(76,120,56,0.18)_34%,rgba(255,255,255,0)_100%)]" />
                     <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-40 overflow-hidden">
-                      <div className="absolute -left-10 -top-14 h-44 w-32 rotate-[-18deg] rounded-[48%_52%_56%_44%/62%_58%_42%_38%] bg-[#729C5A]/18 blur-[4px]" />
-                      <div className="absolute left-[3.7rem] -top-12 h-40 w-24 rotate-[8deg] rounded-[46%_54%_58%_42%/66%_58%_42%_34%] bg-[#2E5B2E]/24 blur-[2px]" />
-                      <div className="absolute right-[-1.2rem] -top-10 h-44 w-28 rotate-[18deg] rounded-[44%_56%_52%_48%/68%_56%_44%_32%] bg-[#466F39]/20 blur-[3px]" />
+                      <div className="absolute -left-12 -top-20 h-44 w-44 rotate-[-16deg] rounded-[42%_58%_44%_56%/62%_42%_58%_38%] bg-[#335A2F]/18 blur-[6px]" />
+                      <div className="absolute left-[3.55rem] -top-16 h-36 w-28 rotate-[6deg] rounded-[44%_56%_48%_52%/64%_44%_56%_36%] bg-[#5C8747]/14 blur-[4px]" />
+                      <div className="absolute right-[-1.7rem] -top-[4.8rem] h-44 w-40 rotate-[18deg] rounded-[44%_56%_50%_50%/66%_46%_54%_34%] bg-[#2D5C2A]/22 blur-[5px]" />
                     </div>
 
                     <div className="relative z-10 px-4 pt-4">
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2.5 rounded-full bg-white/55 px-2.5 py-1.5 shadow-[0_10px_24px_rgba(87,120,56,0.08)]">
+                        <div className="flex items-center gap-2.5 rounded-full bg-white/58 px-2.5 py-1.5 shadow-[0_12px_24px_rgba(87,120,56,0.08)]">
                           <motion.div
                             className="h-9 w-9 overflow-hidden rounded-full ring-2 ring-[#F5E6A4]/80"
                             initial={{ opacity: 0, scale: 0.92 }}
@@ -1013,7 +1042,7 @@ function App() {
                       </div>
                     </div>
 
-                    <div className="relative z-10 mx-3 mt-4 rounded-[30px] bg-[linear-gradient(145deg,#1E6A47_0%,#1A6A47_44%,#2D7A56_100%)] px-5 py-4 text-left shadow-[0_24px_44px_rgba(33,94,63,0.24)]">
+                    <div className="relative z-10 mx-3 mt-4 rounded-[30px] bg-[linear-gradient(145deg,#1E6A47_0%,#1D6B46_48%,#2F7E58_100%)] px-5 py-4 text-left shadow-[0_20px_38px_rgba(33,94,63,0.20)]">
                       <div className="pointer-events-none absolute inset-x-5 top-3 h-10 rounded-full bg-white/10 blur-md" />
                       <div className="flex items-start justify-between gap-3">
                         <div>
@@ -1034,7 +1063,7 @@ function App() {
                         </div>
                       </div>
 
-                      <div className="mt-5 flex items-center justify-between">
+                      <div className="mt-5 flex items-center justify-between gap-3">
                         <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-2 text-[11px] font-medium text-[#EAF4D7]">
                           <span className="text-[14px]">🍌</span>
                           {`35 ${activeCopy.phone.bananasSaved}`}
@@ -1048,18 +1077,18 @@ function App() {
                       </div>
                     </div>
 
-                    <div className="relative z-10 mx-3 mt-4 rounded-[30px] bg-[linear-gradient(180deg,#FFF8DE_0%,#FFFDF0_100%)] px-5 py-4 text-left shadow-[0_20px_38px_rgba(199,179,97,0.14)]">
+                    <div className="relative z-10 mx-3 mt-4 rounded-[32px] bg-[linear-gradient(180deg,#FFF8DD_0%,#FFFDF0_100%)] px-5 py-5 text-left shadow-[0_24px_42px_rgba(199,179,97,0.18)] ring-1 ring-[#F4E7B1]/70">
                       <div className="flex items-start justify-between gap-3">
                         <div>
                           <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#6C8A45]">
                             {activeCopy.phone.lessonLabel}
                           </div>
-                          <div className="mt-2 text-[16px] font-semibold leading-tight text-[#1D1D1F]">
+                          <div className="mt-2 text-[17px] font-semibold leading-tight text-[#1D1D1F]">
                             {activeCopy.phone.lessonTitle}
                           </div>
                         </div>
                         <motion.div
-                          className="flex h-11 w-11 items-center justify-center rounded-full bg-[#DDF2C6] text-[#3F6E30] shadow-[0_10px_18px_rgba(115,158,76,0.10)]"
+                          className="flex h-11 w-11 items-center justify-center rounded-full bg-[#DDF2C6] text-[#3F6E30] shadow-[0_12px_20px_rgba(115,158,76,0.12)]"
                           animate={{ y: [0, -2, 0] }}
                           transition={{ duration: 2.6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
                         >
@@ -1080,13 +1109,13 @@ function App() {
                         </motion.div>
                       </div>
 
-                      <div className="mt-4 flex items-center justify-between text-[11px] font-medium text-[#567243]">
+                      <div className="mt-5 flex items-center justify-between text-[11px] font-medium text-[#567243]">
                         <span>{activeCopy.phone.progressLabel}</span>
                         <span>78%</span>
                       </div>
-                      <div className="mt-2 h-3 rounded-full bg-[#ECE5C6]">
+                      <div className="mt-2 h-3.5 rounded-full bg-[#ECE5C6]">
                         <motion.div
-                          className="h-3 rounded-full bg-[linear-gradient(90deg,#1D7B56_0%,#4FA866_68%,#8BCE69_100%)]"
+                          className="h-3.5 rounded-full bg-[linear-gradient(90deg,#1D7B56_0%,#4FA866_68%,#8BCE69_100%)]"
                           initial={{ width: 0 }}
                           animate={{ width: "78%", transition: { duration: 0.8, delay: 1, ease: "easeOut" } }}
                         />
@@ -1094,13 +1123,13 @@ function App() {
 
                       <motion.button
                         type="button"
-                        className="mt-5 w-full rounded-full bg-[#1F6E49] py-3.5 text-center text-[14px] font-semibold text-white shadow-[0_14px_28px_rgba(31,110,73,0.18)]"
+                        className="mt-5 w-full rounded-full bg-[#1F6E49] py-3.5 text-center text-[14px] font-semibold text-white shadow-[0_16px_30px_rgba(31,110,73,0.22)] transition-shadow duration-200 hover:shadow-[0_18px_32px_rgba(31,110,73,0.24)]"
                         animate={{
                           scale: [1, 1.02, 1],
                           boxShadow: [
-                            "0 14px 28px rgba(31,110,73,0.18)",
-                            "0 18px 30px rgba(31,110,73,0.24)",
-                            "0 14px 28px rgba(31,110,73,0.18)",
+                            "0 16px 30px rgba(31,110,73,0.22)",
+                            "0 19px 34px rgba(31,110,73,0.26)",
+                            "0 16px 30px rgba(31,110,73,0.22)",
                           ],
                         }}
                         transition={{
@@ -1116,7 +1145,7 @@ function App() {
                     </div>
 
                     <div className="mx-3 mt-4 grid grid-cols-[1.05fr_0.95fr] gap-3">
-                      <div className="rounded-[26px] bg-[linear-gradient(180deg,#FFE08A_0%,#FFD965_100%)] px-4 py-4 text-left shadow-[0_18px_32px_rgba(245,198,74,0.16)]">
+                      <div className="rounded-[26px] bg-[linear-gradient(180deg,#FFE08A_0%,#FFD965_100%)] px-4 py-4 text-left shadow-[0_16px_28px_rgba(245,198,74,0.14)]">
                         <motion.div
                           className="flex h-12 w-12 items-center justify-center rounded-full bg-[#FFF2BF] text-[22px] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]"
                           initial={{ y: 0 }}
@@ -1129,7 +1158,7 @@ function App() {
                         <div className="mt-1 text-[11px] font-medium text-[#775D22]">{activeCopy.phone.streakSubtitle}</div>
                       </div>
 
-                      <div className="rounded-[26px] bg-[linear-gradient(180deg,#F6F1DF_0%,#F2EDDE_100%)] px-4 py-4 text-left shadow-[0_16px_28px_rgba(15,23,42,0.05)]">
+                      <div className="rounded-[26px] bg-[linear-gradient(180deg,#F6F1DF_0%,#F2EDDE_100%)] px-4 py-4 text-left shadow-[0_14px_24px_rgba(15,23,42,0.04)]">
                         <div className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#D8EDC6] text-[#2E8A54]">
                           <span className="text-[15px]">$</span>
                         </div>
@@ -1141,7 +1170,7 @@ function App() {
                     </div>
 
                     <div className="mt-auto px-3 pb-4 pt-4">
-                      <div className="flex items-center justify-between rounded-[26px] bg-[#EAF7E6]/90 px-4 py-3 text-[#476B3D] shadow-[0_12px_24px_rgba(87,120,56,0.06)]">
+                      <div className="flex items-center justify-between rounded-[26px] bg-[#EAF7E6]/92 px-4 py-3 text-[#476B3D] shadow-[0_10px_22px_rgba(87,120,56,0.05)]">
                         <div className="flex flex-col items-center gap-1 text-[10px] font-semibold">
                           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#147A58] text-white">
                             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
