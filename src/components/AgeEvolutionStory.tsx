@@ -16,9 +16,37 @@ type Stage = {
   pillClassName: string;
   caption: string;
   topics: ReadonlyArray<string>;
+  phone: {
+    greeting: string;
+    modeLabel: string;
+    headerBadge: string;
+    primaryEyebrow: string;
+    primaryValue?: string;
+    primaryTitle?: string;
+    primaryMeta?: string;
+    primaryBadge?: string;
+    primaryCta?: string;
+    lessonEyebrow: string;
+    lessonTitle: string;
+    progressLabel?: string;
+    progressValue?: string;
+    lessonCta?: string;
+    rewardPrimaryLabel?: string;
+    rewardPrimaryValue?: string;
+    rewardSecondaryLabel?: string;
+    rewardSecondaryValue?: string;
+    milestoneLabels?: ReadonlyArray<string>;
+    chartDays?: ReadonlyArray<string>;
+    secondaryStats?: ReadonlyArray<{
+      label: string;
+      value: string;
+    }>;
+    nav: ReadonlyArray<string>;
+  };
 };
 
 type AgeEvolutionContent = {
+  eyebrow: string;
   headline: string;
   subheadline: string;
   learnHeading: string;
@@ -99,168 +127,319 @@ function StoryAvatar({
   );
 }
 
-function ExplorerPhone({ stage }: { stage: Stage & StoryTheme }) {
+function PhoneBadge({
+  children,
+  dark = false,
+  className = "",
+}: {
+  children: string;
+  dark?: boolean;
+  className?: string;
+}) {
   return (
-    <div className="relative flex aspect-[9/19.5] flex-col overflow-hidden rounded-[30px] bg-[linear-gradient(180deg,#FBF8EC_0%,#FFFDF6_100%)] px-3.5 pt-3.5">
+    <div
+      className={`inline-flex items-center rounded-full px-3 py-1.5 text-[10px] font-semibold leading-none ${
+        dark ? "bg-white/10 text-white/78 ring-1 ring-white/12" : "bg-white/88 text-[#40505C] ring-1 ring-black/[0.06]"
+      } ${className}`}
+    >
+      {children}
+    </div>
+  );
+}
+
+function PhoneButton({
+  children,
+  tone,
+}: {
+  children: string;
+  tone: "green" | "olive" | "blue" | "dark" | "sun";
+}) {
+  const toneClasses = {
+    green:
+      "bg-[linear-gradient(180deg,#228153_0%,#1A6C44_100%)] text-white shadow-[0_18px_32px_rgba(26,108,68,0.28)] ring-1 ring-[#2A8A5B]/25 hover:shadow-[0_20px_36px_rgba(26,108,68,0.32)] active:translate-y-px",
+    olive:
+      "bg-[linear-gradient(180deg,#6E7A3F_0%,#556031_100%)] text-white shadow-[0_18px_30px_rgba(85,96,49,0.26)] ring-1 ring-[#7D8B49]/22 hover:shadow-[0_20px_34px_rgba(85,96,49,0.30)] active:translate-y-px",
+    blue:
+      "bg-[linear-gradient(180deg,#3972B6_0%,#2A5C96_100%)] text-white shadow-[0_18px_30px_rgba(42,92,150,0.28)] ring-1 ring-[#4C83C1]/24 hover:shadow-[0_20px_34px_rgba(42,92,150,0.32)] active:translate-y-px",
+    dark:
+      "bg-[linear-gradient(180deg,rgba(255,255,255,0.18)_0%,rgba(255,255,255,0.10)_100%)] text-white shadow-[0_18px_30px_rgba(5,9,18,0.28)] ring-1 ring-white/12 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.22)_0%,rgba(255,255,255,0.12)_100%)] active:translate-y-px",
+    sun:
+      "bg-[linear-gradient(180deg,#FFE07A_0%,#F5CA47_100%)] text-[#274827] shadow-[0_18px_30px_rgba(245,202,71,0.28)] ring-1 ring-[#F2D66A]/35 hover:shadow-[0_20px_34px_rgba(245,202,71,0.32)] active:translate-y-px",
+  } as const;
+
+  return (
+    <button
+      type="button"
+      className={`w-full rounded-full px-4 py-3.5 text-center text-[13px] font-bold leading-tight tracking-[-0.01em] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#1D1D1F]/10 ${toneClasses[tone]}`}
+    >
+      {children}
+    </button>
+  );
+}
+
+function PhoneHeader({
+  stage,
+  dark = false,
+}: {
+  stage: Stage & StoryTheme;
+  dark?: boolean;
+}) {
+  const phone = stage.phone;
+
+  return (
+    <div
+      className={`relative z-10 flex items-center justify-between gap-3 rounded-[24px] px-3 py-2.5 ${
+        dark
+          ? "bg-white/6 ring-1 ring-white/8 backdrop-blur-[2px]"
+          : "bg-white/82 ring-1 ring-black/[0.05] shadow-[0_10px_24px_rgba(15,23,42,0.06)]"
+      }`}
+    >
+      <div className="flex min-w-0 items-center gap-2.5">
+        <StoryAvatar
+          src={stage.portraitSrc}
+          alt={`${stage.label} avatar`}
+          ringClassName={dark ? "ring-white/10" : "ring-black/5"}
+          className="h-10 w-10"
+        />
+        <div className="min-w-0 text-left">
+          <div className={`truncate text-[10px] font-medium leading-none ${dark ? "text-white/62" : "text-[#5C6A75]"}`}>
+            {phone.greeting}
+          </div>
+          <div className={`mt-1 truncate text-[13px] font-bold leading-none ${dark ? "text-white" : "text-[#17202A]"}`}>
+            {phone.modeLabel}
+          </div>
+        </div>
+      </div>
+      <PhoneBadge dark={dark} className="shrink-0">
+        {phone.headerBadge}
+      </PhoneBadge>
+    </div>
+  );
+}
+
+function StatTile({
+  label,
+  value,
+  tone = "light",
+}: {
+  label: string;
+  value: string;
+  tone?: "light" | "green" | "blue" | "dark";
+}) {
+  const toneClasses = {
+    light: "bg-white/88 ring-1 ring-black/[0.05]",
+    green: "bg-[#EEF4E3] ring-1 ring-[#D7E6C4]",
+    blue: "bg-[#EDF3FB] ring-1 ring-[#D7E4F5]",
+    dark: "bg-white/7 ring-1 ring-white/[0.06]",
+  } as const;
+
+  const labelTone = tone === "dark" ? "text-white/54" : "text-[#5E6973]";
+  const valueTone = tone === "dark" ? "text-white" : "text-[#111827]";
+
+  return (
+    <div className={`min-w-0 rounded-[20px] px-3.5 py-3 ${toneClasses[tone]}`}>
+      <div className={`text-[10px] font-medium leading-snug ${labelTone}`}>{label}</div>
+      <div className={`mt-1.5 text-[17px] font-bold leading-tight tracking-[-0.01em] ${valueTone}`}>{value}</div>
+    </div>
+  );
+}
+
+function StageNav({
+  items,
+  accent,
+  dark = false,
+}: {
+  items: ReadonlyArray<string>;
+  accent: string;
+  dark?: boolean;
+}) {
+  return (
+    <div className={`mt-auto grid grid-cols-3 gap-2 px-1.5 pb-1 ${dark ? "pt-4" : "pt-5"}`}>
+      {items.map((item, index) => {
+        const active = index === 0;
+
+        return (
+          <div
+            key={item}
+            className={`flex min-h-[42px] min-w-0 items-center justify-center rounded-[18px] px-2.5 py-2.5 text-center text-[10px] font-semibold leading-[1.15] tracking-[-0.01em] ${
+              dark
+                ? active
+                  ? "text-[#111827] shadow-[0_10px_22px_rgba(5,9,18,0.18)] ring-1 ring-white/20"
+                  : "text-white/80 ring-1 ring-white/[0.07]"
+                : active
+                  ? "text-white shadow-[0_10px_20px_rgba(15,23,42,0.12)]"
+                  : "text-[#42515D] ring-1 ring-black/[0.06]"
+            }`}
+            style={{
+              backgroundColor:
+                active
+                  ? accent
+                  : dark
+                    ? "rgba(255,255,255,0.06)"
+                    : "rgba(255,255,255,0.84)",
+            }}
+          >
+            {item}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function ExplorerPhone({ stage }: { stage: Stage & StoryTheme }) {
+  const phone = stage.phone;
+
+  return (
+    <div className="relative flex aspect-[9/19.5] flex-col overflow-hidden rounded-[30px] bg-[linear-gradient(180deg,#FBF8EC_0%,#FFFDF6_100%)] px-4 pb-1 pt-4">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-52 bg-[radial-gradient(circle_at_50%_8%,rgba(255,233,162,0.96),rgba(221,237,187,0.74)_34%,rgba(251,248,236,0)_78%)]" />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-[linear-gradient(180deg,rgba(33,65,28,0.30)_0%,rgba(65,102,49,0.18)_32%,rgba(255,255,255,0)_100%)]" />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-[linear-gradient(180deg,rgba(29,63,26,0.26)_0%,rgba(29,63,26,0)_100%)]" />
-      <div className="pointer-events-none absolute -left-14 -top-16 h-40 w-40 rounded-[42%_58%_44%_56%/62%_42%_58%_38%] bg-[#335A2F]/14 blur-[10px]" />
-      <div className="pointer-events-none absolute -right-12 -top-14 h-40 w-40 rounded-[44%_56%_50%_50%/66%_46%_54%_34%] bg-[#2D5C2A]/14 blur-[10px]" />
+      <div className="pointer-events-none absolute -left-14 -top-16 h-40 w-40 rounded-[42%_58%_44%_56%/62%_42%_58%_38%] bg-[#335A2F]/12 blur-[12px]" />
+      <div className="pointer-events-none absolute -right-12 -top-14 h-40 w-40 rounded-[44%_56%_50%_50%/66%_46%_54%_34%] bg-[#2D5C2A]/12 blur-[12px]" />
 
-      <div className="relative z-10 flex items-center justify-between rounded-full bg-white/58 px-2.5 py-1.5 shadow-[0_10px_22px_rgba(87,120,56,0.08)]">
-        <div className="flex items-center gap-2.5">
-          <StoryAvatar src={stage.portraitSrc} alt={`${stage.label} avatar`} ringClassName="ring-[#F5E6A4]/80" />
-          <div className="text-left">
-            <div className="text-[11px] font-medium leading-none text-[#47633A]">Hi, Mila!</div>
-            <div className="mt-1 text-[12px] font-semibold leading-none text-[#1E4E2E]">{stage.wordmark ?? "Fred"}</div>
+      <PhoneHeader stage={stage} />
+
+      <div className="relative z-10 mt-4 rounded-[30px] bg-[linear-gradient(145deg,#1E6A47_0%,#1D6B46_48%,#2F7E58_100%)] px-4 py-4 text-left shadow-[0_18px_34px_rgba(33,94,63,0.18)] ring-1 ring-white/10">
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <div className="text-[10px] font-semibold leading-none text-[#E3F5D7]">{phone.primaryEyebrow}</div>
+            <div className="mt-2 text-[30px] font-bold leading-none tracking-[-0.04em] text-white">{phone.primaryValue}</div>
+          </div>
+          <div className="flex h-11 w-11 items-center justify-center rounded-[18px] bg-[#FFD65C] text-[18px] shadow-[0_12px_24px_rgba(255,214,92,0.18)]">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 13C7 9.7 9.7 7 13 7H17" stroke="#355327" strokeWidth="1.8" strokeLinecap="round" />
+              <path d="M9 16C9 12.7 11.7 10 15 10H18" stroke="#355327" strokeWidth="1.8" strokeLinecap="round" />
+            </svg>
           </div>
         </div>
-        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#E8F4DA]/88 text-[#2E5B2E] shadow-[0_8px_18px_rgba(87,120,56,0.08)]">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path
-              d="M12 21C12 21 18 17.4 18 11V7.5L12 5L6 7.5V11C6 17.4 12 21 12 21Z"
-              stroke="currentColor"
-              strokeWidth="1.7"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <PhoneBadge className="bg-[#E8F4D9] text-[#264B2D] ring-1 ring-[#D3E9C2]">{phone.primaryMeta ?? ""}</PhoneBadge>
+          <PhoneBadge className="bg-[#FFF0B8] text-[#355327] ring-1 ring-[#F2DF95]">{phone.primaryBadge ?? ""}</PhoneBadge>
         </div>
-      </div>
-
-      <div className="relative z-10 mt-4 rounded-[30px] bg-[linear-gradient(145deg,#1E6A47_0%,#1D6B46_48%,#2F7E58_100%)] px-5 py-4 text-left shadow-[0_18px_34px_rgba(33,94,63,0.18)]">
-        <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#C8E6B7]">My Jungle Bank</div>
-        <div className="mt-2 text-[28px] font-bold leading-none tracking-tight text-white">€12.50</div>
-        <div className="mt-4 flex items-center justify-between gap-3">
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-2 text-[11px] font-medium text-[#EAF4D7]">
-            <span className="text-[14px]">🍌</span>
-            35 bananas saved
-          </div>
-          <div className="rounded-full bg-[#88B987]/26 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white/90">
-            Locked
-          </div>
+        <div className="mt-4">
+          <PhoneButton tone="sun">{phone.primaryCta ?? ""}</PhoneButton>
         </div>
       </div>
 
-      <div className="relative z-10 mt-4 rounded-[32px] bg-[linear-gradient(180deg,#FFF8DD_0%,#FFFDF0_100%)] px-5 py-5 text-left shadow-[0_22px_40px_rgba(199,179,97,0.16)] ring-1 ring-[#F4E7B1]/70">
-        <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#6C8A45]">Level 4 • Expedition</div>
-        <div className="mt-2 text-[17px] font-semibold leading-tight text-[#1D1D1F]">Saving Goals</div>
-        <div className="mt-4 flex items-center justify-between text-[11px] font-medium text-[#567243]">
-          <span>Expedition progress</span>
-          <span>78%</span>
+      <div className="relative z-10 mt-4 rounded-[30px] bg-[linear-gradient(180deg,#FFF8DD_0%,#FFFDF0_100%)] px-4 py-4 text-left shadow-[0_22px_40px_rgba(199,179,97,0.16)] ring-1 ring-[#F4E7B1]/70">
+        <div className="text-[10px] font-semibold leading-none text-[#5E7F39]">{phone.lessonEyebrow}</div>
+        <div className="mt-2 text-[18px] font-bold leading-tight text-[#14181C]">{phone.lessonTitle}</div>
+        <div className="mt-4 flex items-center justify-between gap-4 text-[11px] font-medium text-[#4C6A3D]">
+          <span>{phone.progressLabel}</span>
+          <span className="font-bold text-[#2E5830]">{phone.progressValue}</span>
         </div>
         <div className="mt-2 h-3.5 rounded-full bg-[#ECE5C6]">
           <div className="h-3.5 w-[78%] rounded-full bg-[linear-gradient(90deg,#1D7B56_0%,#4FA866_68%,#8BCE69_100%)]" />
         </div>
-        <div className="mt-5 rounded-full bg-[#1F6E49] py-3.5 text-center text-[14px] font-semibold text-white shadow-[0_16px_30px_rgba(31,110,73,0.22)]">
-          Continue lesson
+        <div className="mt-5">
+          <PhoneButton tone="green">{phone.lessonCta ?? ""}</PhoneButton>
         </div>
       </div>
 
-      <div className="mt-4 grid grid-cols-[1.05fr_0.95fr] gap-3">
-        <div className="rounded-[26px] bg-[linear-gradient(180deg,#FFE08A_0%,#FFD965_100%)] px-4 py-4 text-left shadow-[0_16px_28px_rgba(245,198,74,0.14)]">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#FFF2BF] text-[22px] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]">⭐</div>
-          <div className="mt-4 text-[15px] font-semibold text-[#55411C]">7 day streak</div>
-          <div className="mt-1 text-[11px] font-medium text-[#775D22]">Super Explorer!</div>
+      <div className="mt-4 grid grid-cols-[1.06fr_0.94fr] gap-3">
+        <div className="rounded-[24px] bg-[linear-gradient(180deg,#FFE08A_0%,#FFD965_100%)] px-4 py-4 text-left shadow-[0_16px_28px_rgba(245,198,74,0.14)]">
+          <div className="flex h-10 w-10 items-center justify-center rounded-[16px] bg-[#FFF2BF] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 4L14.4 8.6L19.5 9.3L15.8 12.8L16.7 17.9L12 15.5L7.3 17.9L8.2 12.8L4.5 9.3L9.6 8.6L12 4Z" fill="#7D6117" />
+            </svg>
+          </div>
+          <div className="mt-3 text-[14px] font-bold leading-tight text-[#4D3913]">{phone.rewardPrimaryLabel}</div>
+          <div className="mt-1 text-[11px] font-medium leading-relaxed text-[#775D22]">{phone.rewardPrimaryValue}</div>
         </div>
-        <div className="rounded-[26px] bg-[linear-gradient(180deg,#F6F1DF_0%,#F2EDDE_100%)] px-4 py-4 text-left shadow-[0_10px_20px_rgba(15,23,42,0.035)]">
-          <div className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#D8EDC6] text-[#2E8A54]">$</div>
-          <div className="mt-4 text-[14px] font-semibold text-[#3A4530]">Rewards</div>
-          <div className="mt-2 text-[11px] leading-relaxed text-[#6E6E73]">Next: Golden Banana</div>
+        <div className="rounded-[24px] bg-[linear-gradient(180deg,#F7F2E5_0%,#F3EEDC_100%)] px-4 py-4 text-left shadow-[0_10px_20px_rgba(15,23,42,0.035)]">
+          <div className="flex h-10 w-10 items-center justify-center rounded-[16px] bg-[#D8EDC6]">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 5C15.3 5 18 7.7 18 11C18 15.4 12 19 12 19C12 19 6 15.4 6 11C6 7.7 8.7 5 12 5Z" stroke="#2E8A54" strokeWidth="1.8" />
+            </svg>
+          </div>
+          <div className="mt-3 text-[13px] font-bold leading-tight text-[#2F3B28]">{phone.rewardSecondaryLabel}</div>
+          <div className="mt-1 text-[11px] leading-relaxed text-[#505A61]">{phone.rewardSecondaryValue}</div>
         </div>
       </div>
+
+      <StageNav items={phone.nav} accent={stage.accentStrong} />
     </div>
   );
 }
 
 function AdventurerPhone({ stage }: { stage: Stage & StoryTheme }) {
+  const phone = stage.phone;
+
   return (
-    <div className="relative flex aspect-[9/19.5] flex-col overflow-hidden rounded-[30px] bg-[linear-gradient(180deg,#FBF7EC_0%,#FFFDF7_100%)] px-3.5 pt-3.5">
+    <div className="relative flex aspect-[9/19.5] flex-col overflow-hidden rounded-[30px] bg-[linear-gradient(180deg,#FBF7EC_0%,#FFFDF7_100%)] px-4 pb-1 pt-4">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-52 bg-[radial-gradient(circle_at_50%_10%,rgba(240,218,156,0.88),rgba(223,210,161,0.46)_38%,rgba(255,255,255,0)_76%)]" />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-[linear-gradient(180deg,rgba(88,86,45,0.22)_0%,rgba(124,112,67,0.12)_42%,rgba(255,255,255,0)_100%)]" />
       <div className="pointer-events-none absolute -left-8 top-8 h-24 w-24 rounded-full bg-[#D8C089]/22 blur-2xl" />
 
-      <div className="relative z-10 flex items-center justify-between rounded-full bg-white/70 px-2.5 py-1.5 shadow-[0_10px_24px_rgba(114,101,55,0.08)]">
-        <div className="flex items-center gap-2.5">
-          <StoryAvatar src={stage.portraitSrc} alt={`${stage.label} avatar`} ringClassName="ring-[#EAD9A9]" />
-          <div className="text-left">
-            <div className="text-[11px] font-medium leading-none text-[#645934]">Hi, Mila!</div>
-            <div className="mt-1 text-[12px] font-semibold leading-none text-[#514824]">Adventure mode</div>
-          </div>
-        </div>
-        <div className="rounded-full bg-[#EFE3B9] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#7B6B36]">
-          Trail active
-        </div>
-      </div>
+      <PhoneHeader stage={stage} />
 
-      <div className="relative z-10 mt-4 rounded-[30px] bg-[linear-gradient(145deg,#F8EACA_0%,#F5E1B1_52%,#E8D5A0_100%)] px-5 py-4 text-left shadow-[0_18px_34px_rgba(138,116,52,0.14)]">
-        <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#7A6C39]">Explorer trail</div>
-        <div className="mt-2 text-[18px] font-semibold leading-tight text-[#3A3320]">Milestones unlocked</div>
-        <div className="mt-4 flex items-center gap-2">
-          {[0, 1, 2].map((step) => (
-            <div key={step} className="flex flex-1 items-center gap-2">
-              <div className={`h-8 w-8 rounded-full ${step < 2 ? "bg-[#8AA55B]" : "bg-[#D9C998]"} text-center text-[11px] font-semibold leading-8 text-white`}>
-                {step + 1}
+      <div className="relative z-10 mt-4 rounded-[30px] bg-[linear-gradient(145deg,#F8EACA_0%,#F5E1B1_52%,#E8D5A0_100%)] px-4 py-4 text-left shadow-[0_18px_34px_rgba(138,116,52,0.14)] ring-1 ring-white/30">
+        <div className="text-[10px] font-semibold leading-none text-[#726432]">{phone.primaryEyebrow}</div>
+        <div className="mt-2 text-[18px] font-bold leading-tight text-[#2E291A]">{phone.primaryTitle}</div>
+        <div className="mt-4 flex items-start">
+          {phone.milestoneLabels?.map((label, step) => (
+            <div key={label} className="flex min-w-0 flex-1 items-start">
+              <div className="flex min-w-0 flex-1 flex-col items-center">
+                <div
+                  className={`flex h-8 w-8 items-center justify-center rounded-full ${
+                    step < 2 ? "bg-[#8AA55B]" : "bg-[#CDBA7B]"
+                  } text-[11px] font-semibold text-white`}
+                >
+                  {step + 1}
+                </div>
+                <div className="mt-2 w-full text-center text-[10px] font-medium leading-tight text-[#65592F]">{label}</div>
               </div>
-              {step < 2 ? <div className="h-1 flex-1 rounded-full bg-[#CDBA7B]" /> : null}
+              {step < (phone.milestoneLabels?.length ?? 0) - 1 ? (
+                <div className="flex flex-1 items-center px-2 pt-4">
+                  <div className="h-1 w-full rounded-full bg-[#D5C081]" />
+                </div>
+              ) : null}
             </div>
           ))}
         </div>
       </div>
 
-      <div className="relative z-10 mt-4 rounded-[32px] bg-white/90 px-5 py-5 text-left shadow-[0_20px_34px_rgba(46,44,31,0.08)] ring-1 ring-black/[0.04]">
-        <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#7B6B36]">Weekly challenge</div>
-        <div className="mt-2 text-[17px] font-semibold leading-tight text-[#1D1D1F]">Needs vs wants</div>
+      <div className="relative z-10 mt-4 rounded-[30px] bg-white/92 px-4 py-4 text-left shadow-[0_20px_34px_rgba(46,44,31,0.08)] ring-1 ring-black/[0.04]">
+        <div className="text-[10px] font-semibold leading-none text-[#726432]">{phone.lessonEyebrow}</div>
+        <div className="mt-2 text-[18px] font-bold leading-tight text-[#171A1E]">{phone.lessonTitle}</div>
         <div className="mt-4 grid grid-cols-2 gap-3">
-          <div className="rounded-[20px] bg-[#F6F0DD] px-3 py-3">
-            <div className="text-[11px] font-medium text-[#6E6E73]">Quiz score</div>
-            <div className="mt-1 text-[18px] font-semibold text-[#3A3320]">92%</div>
-          </div>
-          <div className="rounded-[20px] bg-[#EEF2DD] px-3 py-3">
-            <div className="text-[11px] font-medium text-[#6E6E73]">Badges</div>
-            <div className="mt-1 text-[18px] font-semibold text-[#3A3320]">4 earned</div>
-          </div>
+          {phone.secondaryStats?.map((stat, index) => (
+            <StatTile key={stat.label} label={stat.label} value={stat.value} tone={index === 0 ? "light" : "green"} />
+          ))}
         </div>
-        <div className="mt-5 rounded-full bg-[#5F6B36] py-3.5 text-center text-[14px] font-semibold text-white shadow-[0_14px_28px_rgba(95,107,54,0.18)]">
-          Continue mission
+        <div className="mt-5">
+          <PhoneButton tone="olive">{phone.lessonCta ?? ""}</PhoneButton>
         </div>
       </div>
 
-      <div className="mt-4 rounded-[26px] bg-white/78 px-4 py-4 text-left shadow-[0_12px_24px_rgba(15,23,42,0.04)]">
-        <div className="flex items-center justify-between">
-          <div>
-            <div className="text-[11px] font-medium text-[#6E6E73]">Explorer rank</div>
-            <div className="mt-1 text-[15px] font-semibold text-[#3A3320]">Adventurer</div>
+      <div className="mt-4 rounded-[24px] bg-white/82 px-4 py-4 text-left shadow-[0_12px_24px_rgba(15,23,42,0.04)] ring-1 ring-black/[0.04]">
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <div className="text-[10px] font-semibold leading-none text-[#62656B]">{phone.rewardPrimaryLabel}</div>
+            <div className="mt-2 text-[16px] font-bold leading-tight text-[#2E291A]">{phone.rewardPrimaryValue}</div>
           </div>
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#F3E3B3] text-[18px]">🧭</div>
+          <PhoneBadge className="bg-[#F3E3B3] text-[#6A5A25] ring-0">{phone.rewardSecondaryValue ?? ""}</PhoneBadge>
         </div>
       </div>
+
+      <StageNav items={phone.nav} accent={stage.accentStrong} />
     </div>
   );
 }
 
 function NavigatorPhone({ stage }: { stage: Stage & StoryTheme }) {
+  const phone = stage.phone;
+
   return (
-    <div className="relative flex aspect-[9/19.5] flex-col overflow-hidden rounded-[30px] bg-[linear-gradient(180deg,#F4F8FC_0%,#FFFFFF_100%)] px-3.5 pt-3.5">
+    <div className="relative flex aspect-[9/19.5] flex-col overflow-hidden rounded-[30px] bg-[linear-gradient(180deg,#F4F8FC_0%,#FFFFFF_100%)] px-4 pb-1 pt-4">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-56 bg-[linear-gradient(180deg,rgba(90,127,178,0.42)_0%,rgba(170,205,230,0.20)_44%,rgba(255,255,255,0)_100%)]" />
       <div className="pointer-events-none absolute inset-x-0 bottom-[47%] h-16 bg-[linear-gradient(180deg,rgba(110,147,184,0)_0%,rgba(110,147,184,0.16)_100%)]" />
 
-      <div className="relative z-10 flex items-center justify-between">
-        <div className="flex items-center gap-2.5 rounded-full bg-white/82 px-2.5 py-1.5 shadow-[0_10px_24px_rgba(73,102,138,0.10)]">
-          <StoryAvatar src={stage.portraitSrc} alt={`${stage.label} avatar`} ringClassName="ring-[#D7E7FA]" />
-          <div className="text-left">
-            <div className="text-[11px] font-medium leading-none text-[#5B6F89]">Hi, Mila!</div>
-            <div className="mt-1 text-[12px] font-semibold leading-none text-[#26486F]">Navigator</div>
-          </div>
-        </div>
-        <div className="rounded-full bg-[#DDE8F8] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#38659F]">
-          Weekly view
-        </div>
-      </div>
+      <PhoneHeader stage={stage} />
 
-      <div className="relative z-10 mt-4 rounded-[30px] bg-white/90 px-5 py-4 text-left shadow-[0_18px_34px_rgba(47,97,160,0.10)] ring-1 ring-[#E3ECF8]">
-        <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#587393]">Money map</div>
+      <div className="relative z-10 mt-4 rounded-[30px] bg-white/90 px-4 py-4 text-left shadow-[0_18px_34px_rgba(47,97,160,0.10)] ring-1 ring-[#E3ECF8]">
+        <div className="text-[10px] font-semibold leading-none text-[#4B6889]">{phone.primaryEyebrow}</div>
         <div className="mt-3 grid grid-cols-5 items-end gap-2">
           {[34, 52, 76, 60, 84].map((value, index) => (
             <div key={index} className="flex flex-col items-center gap-2">
@@ -270,68 +449,61 @@ function NavigatorPhone({ stage }: { stage: Stage & StoryTheme }) {
                   style={{ height: `${Math.max(18, value - 10)}px` }}
                 />
               </div>
-              <div className="text-[9px] font-medium text-[#6E6E73]">{["M", "T", "W", "T", "F"][index]}</div>
+              <div className="text-[9px] font-medium text-[#5F6E83]">{phone.chartDays?.[index]}</div>
             </div>
+          ))}
+        </div>
+        <div className="mt-4 grid grid-cols-2 gap-2">
+          {phone.secondaryStats?.map((stat, index) => (
+            <PhoneBadge key={stat.label} className={index === 0 ? "justify-between bg-[#EDF3FB] text-[#3F5E86] ring-0" : "justify-between bg-white text-[#5A6B7B]"}>
+              {`${stat.label} · ${stat.value}`}
+            </PhoneBadge>
           ))}
         </div>
       </div>
 
-      <div className="relative z-10 mt-4 rounded-[32px] bg-[linear-gradient(180deg,#EFF5FD_0%,#FFFFFF_100%)] px-5 py-5 text-left shadow-[0_20px_34px_rgba(58,98,146,0.10)]">
-        <div className="flex items-center justify-between">
-          <div>
-            <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#5E7FA8]">Current focus</div>
-            <div className="mt-2 text-[17px] font-semibold leading-tight text-[#1D1D1F]">Budgeting basics</div>
+      <div className="relative z-10 mt-4 rounded-[30px] bg-[linear-gradient(180deg,#EFF5FD_0%,#FFFFFF_100%)] px-4 py-4 text-left shadow-[0_20px_34px_rgba(58,98,146,0.10)] ring-1 ring-[#E6EEF8]">
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <div className="text-[10px] font-semibold leading-none text-[#53749B]">{phone.lessonEyebrow}</div>
+            <div className="mt-2 text-[18px] font-bold leading-tight text-[#111827]">{phone.lessonTitle}</div>
           </div>
-          <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#DDE8F8] text-[#2F61A0]">📘</div>
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[16px] bg-[#DDE8F8] text-[#2F61A0]">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 6.5H18V17.5H7C5.9 17.5 5 16.6 5 15.5V8.5C5 7.4 5.9 6.5 7 6.5Z" stroke="currentColor" strokeWidth="1.8" />
+              <path d="M9 9.5H15" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+            </svg>
+          </div>
         </div>
         <div className="mt-4 flex items-center justify-between text-[11px] font-medium text-[#5F6E83]">
-          <span>Course progress</span>
-          <span>84%</span>
+          <span>{phone.progressLabel}</span>
+          <span className="font-bold text-[#244E81]">{phone.progressValue}</span>
         </div>
         <div className="mt-2 h-3 rounded-full bg-[#E5ECF5]">
           <div className="h-3 w-[84%] rounded-full bg-[linear-gradient(90deg,#2F61A0_0%,#78A9D5_100%)]" />
         </div>
-        <div className="mt-5 rounded-full bg-[#2F61A0] py-3.5 text-center text-[14px] font-semibold text-white shadow-[0_14px_28px_rgba(47,97,160,0.20)]">
-          Review insights
+        <div className="mt-5">
+          <PhoneButton tone="blue">{phone.lessonCta ?? ""}</PhoneButton>
         </div>
       </div>
 
-      <div className="mt-4 grid grid-cols-2 gap-3">
-        {[
-          ["Monthly goal", "€80"],
-          ["ETF basics", "Next up"],
-        ].map(([label, value]) => (
-          <div key={label} className="rounded-[22px] bg-white/84 px-4 py-4 shadow-[0_10px_20px_rgba(15,23,42,0.04)]">
-            <div className="text-[11px] font-medium text-[#6E6E73]">{label}</div>
-            <div className="mt-2 text-[15px] font-semibold text-[#294C74]">{value}</div>
-          </div>
-        ))}
-      </div>
+      <StageNav items={phone.nav} accent={stage.accentStrong} />
     </div>
   );
 }
 
 function IndependencePhone({ stage }: { stage: Stage & StoryTheme }) {
+  const phone = stage.phone;
+
   return (
-    <div className="relative flex aspect-[9/19.5] flex-col overflow-hidden rounded-[30px] bg-[linear-gradient(180deg,#0F1624_0%,#131C2B_100%)] px-3.5 pt-3.5 text-white">
+    <div className="relative flex aspect-[9/19.5] flex-col overflow-hidden rounded-[30px] bg-[linear-gradient(180deg,#0F1624_0%,#131C2B_100%)] px-4 pb-1 pt-4 text-white">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-48 bg-[radial-gradient(circle_at_50%_0%,rgba(117,143,196,0.28),rgba(24,34,52,0)_68%)]" />
 
-      <div className="relative z-10 flex items-center justify-between rounded-full bg-white/6 px-3 py-2 backdrop-blur-[2px]">
-        <div className="flex items-center gap-2.5">
-          <StoryAvatar src={stage.portraitSrc} alt={`${stage.label} avatar`} ringClassName="ring-white/10" />
-          <div className="text-left">
-            <div className="text-[11px] font-medium leading-none text-white/60">Profile</div>
-            <div className="mt-1 text-[12px] font-semibold leading-none text-white/90">Independence</div>
-          </div>
-        </div>
-        <div className="rounded-full bg-white/8 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white/68">
-          Live
-        </div>
-      </div>
+      <PhoneHeader stage={stage} dark />
 
-      <div className="relative z-10 mt-4 rounded-[30px] bg-[linear-gradient(180deg,rgba(39,51,77,0.94)_0%,rgba(25,34,52,0.94)_100%)] px-5 py-4 shadow-[0_22px_42px_rgba(5,9,18,0.28)] ring-1 ring-white/[0.06]">
-        <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/48">Available balance</div>
-        <div className="mt-2 text-[28px] font-bold leading-none tracking-tight text-white">€255.70</div>
+      <div className="relative z-10 mt-4 rounded-[30px] bg-[linear-gradient(180deg,rgba(39,51,77,0.94)_0%,rgba(25,34,52,0.94)_100%)] px-4 py-4 shadow-[0_22px_42px_rgba(5,9,18,0.28)] ring-1 ring-white/[0.06]">
+        <div className="text-[10px] font-semibold leading-none text-white/52">{phone.primaryEyebrow}</div>
+        <div className="mt-2 text-[28px] font-bold leading-none tracking-tight text-white">{phone.primaryValue}</div>
         <div className="mt-5 h-20 rounded-[22px] bg-[linear-gradient(180deg,rgba(255,255,255,0.05)_0%,rgba(255,255,255,0.02)_100%)] p-3">
           <svg viewBox="0 0 160 54" className="h-full w-full" fill="none" aria-hidden="true">
             <path d="M0 44C22 44 20 24 43 24C65 24 68 38 89 38C110 38 116 10 136 10C148 10 154 18 160 22" stroke="#B7C8F2" strokeWidth="2.5" strokeLinecap="round" />
@@ -339,31 +511,17 @@ function IndependencePhone({ stage }: { stage: Stage & StoryTheme }) {
         </div>
       </div>
 
-      <div className="relative z-10 mt-4 rounded-[32px] bg-[linear-gradient(180deg,rgba(37,47,69,0.92)_0%,rgba(24,31,46,0.96)_100%)] px-5 py-5 shadow-[0_20px_34px_rgba(5,9,18,0.22)] ring-1 ring-white/[0.06]">
-        <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/46">Next lesson</div>
-        <div className="mt-2 text-[17px] font-semibold leading-tight text-white">ETFs and long-term investing</div>
+      <div className="relative z-10 mt-4 rounded-[30px] bg-[linear-gradient(180deg,rgba(37,47,69,0.92)_0%,rgba(24,31,46,0.96)_100%)] px-4 py-4 shadow-[0_20px_34px_rgba(5,9,18,0.22)] ring-1 ring-white/[0.06]">
+        <div className="text-[10px] font-semibold leading-none text-white/54">{phone.lessonEyebrow}</div>
+        <div className="mt-2 text-[18px] font-bold leading-tight text-white">{phone.lessonTitle}</div>
         <div className="mt-4 grid grid-cols-2 gap-3">
-          <div className="rounded-[20px] bg-white/6 px-3 py-3">
-            <div className="text-[11px] font-medium text-white/46">Portfolio</div>
-            <div className="mt-1 text-[16px] font-semibold text-white">€1,670</div>
-          </div>
-          <div className="rounded-[20px] bg-white/6 px-3 py-3">
-            <div className="text-[11px] font-medium text-white/46">Monthly save</div>
-            <div className="mt-1 text-[16px] font-semibold text-white">€80</div>
-          </div>
+          {phone.secondaryStats?.map((stat) => (
+            <StatTile key={stat.label} label={stat.label} value={stat.value} tone="dark" />
+          ))}
         </div>
       </div>
 
-      <div className="mt-4 grid grid-cols-3 gap-3 pb-3">
-        {["Account", "Card", "Invest"].map((item) => (
-          <div
-            key={item}
-            className="rounded-[20px] bg-white/6 px-3 py-3 text-center text-[11px] font-medium text-white/72 ring-1 ring-white/[0.04]"
-          >
-            {item}
-          </div>
-        ))}
-      </div>
+      <StageNav items={phone.nav} accent={stage.accentStrong} dark />
     </div>
   );
 }
@@ -436,6 +594,25 @@ function TopicBlock({
   );
 }
 
+function SectionIntro({ content }: { content: AgeEvolutionContent }) {
+  return (
+    <div className="relative mx-auto max-w-4xl px-5 pb-6 pt-20 text-center sm:px-6 sm:pb-8 sm:pt-24 lg:pb-10 lg:pt-28">
+      <div className="pointer-events-none absolute inset-x-[18%] top-0 h-32 rounded-full bg-[radial-gradient(circle_at_center,rgba(196,215,240,0.12),rgba(255,255,255,0)_72%)] blur-[44px]" />
+      <div className="relative">
+        <div className="inline-flex items-center rounded-full border border-black/[0.06] bg-white/72 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#6E6E73] backdrop-blur-[6px]">
+          {content.eyebrow}
+        </div>
+        <h2 className="mx-auto mt-6 max-w-[12ch] text-[clamp(2.5rem,6vw,4.6rem)] font-bold leading-[1.02] tracking-[-0.05em] text-[#1D1D1F]">
+          {content.headline}
+        </h2>
+        <p className="mx-auto mt-5 max-w-[38rem] text-[16px] leading-relaxed text-[#6E6E73] sm:text-[18px]">
+          {content.subheadline}
+        </p>
+      </div>
+    </div>
+  );
+}
+
 function DesktopStory({
   stages,
   activeStage,
@@ -464,10 +641,6 @@ function DesktopStory({
 
         <div className="relative mx-auto grid w-full max-w-6xl grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] items-center gap-16 px-6">
           <div className="relative">
-            <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-black/[0.06] bg-white/55 px-4 py-2 backdrop-blur-[6px]">
-              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#6E6E73]">Age evolution</span>
-            </div>
-
             <AnimatePresence mode="wait">
               <motion.div
                 key={`${active.label}-${active.ageRange}`}
@@ -556,17 +729,8 @@ function DesktopStory({
 function MobileStory({ stages, content }: { stages: ReadonlyArray<Stage & StoryTheme>; content: AgeEvolutionContent }) {
   return (
     <div className="lg:hidden">
-      <div className="mx-auto max-w-6xl px-5 py-18 sm:px-6 sm:py-20">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-[clamp(2.2rem,8vw,3.8rem)] font-bold leading-[1.02] tracking-[-0.05em] text-[#1D1D1F]">
-            {content.headline}
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-[16px] leading-relaxed text-[#6E6E73] sm:text-[18px]">
-            {content.subheadline}
-          </p>
-        </div>
-
-        <div className="mt-10 space-y-5">
+      <div className="mx-auto max-w-6xl px-5 pb-18 pt-10 sm:px-6 sm:pb-20 sm:pt-12">
+        <div className="space-y-5">
           {stages.map((stage, index) => (
             <motion.article
               key={`${stage.label}-${stage.ageRange}-mobile`}
@@ -672,6 +836,7 @@ export default function AgeEvolutionStory({ content }: { content: AgeEvolutionCo
 
   return (
     <section ref={sectionRef} className="relative bg-white">
+      <SectionIntro content={content} />
       <div ref={desktopStoryRef}>
         <DesktopStory
           stages={stages}

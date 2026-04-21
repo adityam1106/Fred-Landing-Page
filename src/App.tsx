@@ -47,29 +47,8 @@ const copy = {
     navCta: "Get early access",
     primaryCta: "Join the waitlist",
     secondaryCta: "Learn more ↓",
-    phone: {
-      greeting: "Hi, Mila!",
-      mode: "Explorer Fred",
-      annotation: "Representative Explorer preview",
-      bankLabel: "My Jungle Bank",
-      locked: "Locked",
-      bananasSaved: "bananas saved",
-      details: "Details",
-      lessonLabel: "Level 4 • Expedition",
-      lessonTitle: "Saving Goals",
-      progressLabel: "Expedition progress",
-      cta: "Continue lesson →",
-      streakTitle: "7 day streak",
-      streakSubtitle: "Super Explorer!",
-      rewards: "Rewards",
-      nextReward: "Next: Golden Banana",
-      nav: {
-        home: "Jungle",
-        lessons: "Lessons",
-        bank: "Bank",
-      },
-    },
     ageEvolution: {
+      eyebrow: "Age evolution",
       headline: "Grows with your child",
       subheadline: "From saving up that special LEGO set to understanding taxes and investments.",
       learnHeading: "What you'll learn",
@@ -90,6 +69,26 @@ const copy = {
             "How money is earned",
             "Spending wisely",
           ],
+          phone: {
+            greeting: "Hi, Mila!",
+            modeLabel: "Explorer",
+            headerBadge: "Ready",
+            primaryEyebrow: "Jungle bank",
+            primaryValue: "€12.50",
+            primaryMeta: "35 bananas saved",
+            primaryBadge: "Locked",
+            primaryCta: "View balance",
+            lessonEyebrow: "Today",
+            lessonTitle: "Saving Goals",
+            progressLabel: "Lesson progress",
+            progressValue: "78%",
+            lessonCta: "Continue lesson",
+            rewardPrimaryLabel: "7 day streak",
+            rewardPrimaryValue: "Super Explorer",
+            rewardSecondaryLabel: "Next reward",
+            rewardSecondaryValue: "Golden Banana",
+            nav: ["Home", "Learn", "Bank"],
+          },
         },
         {
           label: "Adventurer",
@@ -106,6 +105,26 @@ const copy = {
             "Setting financial goals",
             "Delayed gratification",
           ],
+          phone: {
+            greeting: "Hi, Mila!",
+            modeLabel: "Adventurer",
+            headerBadge: "Trail on",
+            primaryEyebrow: "Milestone trail",
+            primaryTitle: "2 milestones unlocked",
+            milestoneLabels: ["Start", "Budget", "Goal"],
+            lessonEyebrow: "This week",
+            lessonTitle: "Needs or wants?",
+            secondaryStats: [
+              { label: "Quiz", value: "92%" },
+              { label: "Badges", value: "4 total" },
+            ],
+            lessonCta: "Keep going",
+            rewardPrimaryLabel: "Current rank",
+            rewardPrimaryValue: "Adventurer",
+            rewardSecondaryLabel: "Latest unlock",
+            rewardSecondaryValue: "Budget badge",
+            nav: ["Trail", "Learn", "Wins"],
+          },
         },
         {
           label: "Navigator",
@@ -122,6 +141,23 @@ const copy = {
             "Basics of investing",
             "Digital payments & safety",
           ],
+          phone: {
+            greeting: "Hi, Mila!",
+            modeLabel: "Navigator",
+            headerBadge: "Week",
+            primaryEyebrow: "Money map",
+            chartDays: ["M", "T", "W", "T", "F"],
+            lessonEyebrow: "Focus",
+            lessonTitle: "Budgeting basics",
+            progressLabel: "Course",
+            progressValue: "84%",
+            lessonCta: "Open insights",
+            secondaryStats: [
+              { label: "Monthly goal", value: "€80" },
+              { label: "Investing", value: "Up next" },
+            ],
+            nav: ["Overview", "Learn", "Goals"],
+          },
         },
         {
           label: "Independence",
@@ -138,6 +174,20 @@ const copy = {
             "Credit responsibility",
             "Financial planning",
           ],
+          phone: {
+            greeting: "Profile",
+            modeLabel: "Independence",
+            headerBadge: "Live",
+            primaryEyebrow: "Available",
+            primaryValue: "€255.70",
+            lessonEyebrow: "Next up",
+            lessonTitle: "ETFs & long-term investing",
+            secondaryStats: [
+              { label: "Portfolio", value: "€1,670" },
+              { label: "Monthly plan", value: "€80" },
+            ],
+            nav: ["Account", "Card", "Invest"],
+          },
         },
       ],
     },
@@ -323,29 +373,8 @@ const copy = {
     navCta: "Früher Zugang",
     primaryCta: "Zur Warteliste",
     secondaryCta: "Mehr erfahren ↓",
-    phone: {
-      greeting: "Hi, Mila!",
-      mode: "Entdecker Fred",
-      annotation: "Beispielhafte Explorer-Vorschau",
-      bankLabel: "Meine Dschungelbank",
-      locked: "Gesperrt",
-      bananasSaved: "Bananen gespart",
-      details: "Details",
-      lessonLabel: "Level 4 • Expedition",
-      lessonTitle: "Sparziele",
-      progressLabel: "Expeditionsfortschritt",
-      cta: "Lektion fortsetzen →",
-      streakTitle: "7 Tage Serie",
-      streakSubtitle: "Super Entdecker!",
-      rewards: "Belohnungen",
-      nextReward: "Als Nächstes: Goldene Banane",
-      nav: {
-        home: "Dschungel",
-        lessons: "Lektionen",
-        bank: "Bank",
-      },
-    },
     ageEvolution: {
+      eyebrow: "Altersentwicklung",
       headline: "Wächst mit deinem Kind",
       subheadline: "Vom Sparen für das besondere LEGO-Set bis hin zum Verständnis von Steuern und Investitionen.",
       learnHeading: "Das lernst du",
@@ -366,6 +395,26 @@ const copy = {
             "Wie man Geld verdient",
             "Klug ausgeben",
           ],
+          phone: {
+            greeting: "Hi, Mila!",
+            modeLabel: "Entdecker",
+            headerBadge: "Bereit",
+            primaryEyebrow: "Dschungelbank",
+            primaryValue: "12,50 €",
+            primaryMeta: "35 Bananen",
+            primaryBadge: "Gesperrt",
+            primaryCta: "Guthaben",
+            lessonEyebrow: "Heute",
+            lessonTitle: "Sparziele",
+            progressLabel: "Lernfortschritt",
+            progressValue: "78%",
+            lessonCta: "Lektion fortsetzen",
+            rewardPrimaryLabel: "7 Tage Serie",
+            rewardPrimaryValue: "Super-Entdecker",
+            rewardSecondaryLabel: "Nächste Belohnung",
+            rewardSecondaryValue: "Goldene Banane",
+            nav: ["Start", "Lernen", "Bank"],
+          },
         },
         {
           label: "Abenteurer",
@@ -382,6 +431,26 @@ const copy = {
             "Finanzielle Ziele setzen",
             "Belohnung aufschieben",
           ],
+          phone: {
+            greeting: "Hi, Mila!",
+            modeLabel: "Abenteurer",
+            headerBadge: "Pfad aktiv",
+            primaryEyebrow: "Meilensteinpfad",
+            primaryTitle: "2 Meilensteine frei",
+            milestoneLabels: ["Start", "Budget", "Ziel"],
+            lessonEyebrow: "Diese Woche",
+            lessonTitle: "Wunsch oder Bedarf?",
+            secondaryStats: [
+              { label: "Quiz", value: "92%" },
+              { label: "Abzeichen", value: "4 gesamt" },
+            ],
+            lessonCta: "Weiter",
+            rewardPrimaryLabel: "Aktueller Rang",
+            rewardPrimaryValue: "Abenteurer",
+            rewardSecondaryLabel: "Neu",
+            rewardSecondaryValue: "Budget-Abzeichen",
+            nav: ["Pfad", "Lernen", "Erfolge"],
+          },
         },
         {
           label: "Navigator",
@@ -398,6 +467,23 @@ const copy = {
             "Grundlagen des Investierens",
             "Digitale Zahlungen und Sicherheit",
           ],
+          phone: {
+            greeting: "Hi, Mila!",
+            modeLabel: "Navigator",
+            headerBadge: "Woche",
+            primaryEyebrow: "Geldkarte",
+            chartDays: ["M", "D", "M", "D", "F"],
+            lessonEyebrow: "Fokus",
+            lessonTitle: "Budget-Basis",
+            progressLabel: "Kurs",
+            progressValue: "84%",
+            lessonCta: "Einblicke ansehen",
+            secondaryStats: [
+              { label: "Monatsziel", value: "80 €" },
+              { label: "Investieren", value: "Als Nächstes" },
+            ],
+            nav: ["Übersicht", "Lernen", "Ziele"],
+          },
         },
         {
           label: "Unabhängig",
@@ -414,6 +500,20 @@ const copy = {
             "Verantwortung bei Krediten",
             "Finanzplanung",
           ],
+          phone: {
+            greeting: "Profil",
+            modeLabel: "Unabhängig",
+            headerBadge: "Live",
+            primaryEyebrow: "Verfügbar",
+            primaryValue: "255,70 €",
+            lessonEyebrow: "Als Nächstes",
+            lessonTitle: "ETFs & langfristig",
+            secondaryStats: [
+              { label: "Portfolio", value: "1.670 €" },
+              { label: "Monatsplan", value: "80 €" },
+            ],
+            nav: ["Konto", "Karte", "Invest"],
+          },
         },
       ],
     },
@@ -725,7 +825,6 @@ function App() {
   const scrolledRef = useRef(false);
   const heroRef = useRef<HTMLElement | null>(null);
   const heroContentRef = useRef<HTMLDivElement | null>(null);
-  const heroPhoneRef = useRef<HTMLDivElement | null>(null);
   const { scrollY } = useScroll();
   const prefersReducedMotion = useReducedMotion();
 
@@ -788,10 +887,9 @@ function App() {
     () => {
       const hero = heroRef.current;
       const heroContent = heroContentRef.current;
-      const heroPhone = heroPhoneRef.current;
       const lenis = lenisRef.current;
 
-      if (!hero || !heroContent || !heroPhone) {
+      if (!hero || !heroContent) {
         return;
       }
 
@@ -803,7 +901,7 @@ function App() {
       const syncScrollTrigger = () => ScrollTrigger.update();
       lenis?.on("scroll", syncScrollTrigger);
 
-      // Keep the hero layered: text drifts gently while the phone travels a bit further.
+      // Keep the hero text drifting gently with scroll for a little depth.
       const timeline = gsap.timeline({
         defaults: { ease: "none" },
         scrollTrigger: {
@@ -821,8 +919,6 @@ function App() {
         },
         0,
       );
-
-      timeline.to(heroPhone, { y: -96 }, 0);
 
       ScrollTrigger.refresh();
 
@@ -956,11 +1052,11 @@ function App() {
         <section
           id="hero"
           ref={heroRef}
-          className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden bg-white px-5 pb-16 pt-24 text-center sm:px-6 sm:pb-20 sm:pt-28"
+          className="relative flex min-h-[86svh] flex-col items-center justify-center overflow-hidden bg-white px-5 pb-18 pt-22 text-center sm:px-6 sm:pb-24 sm:pt-24 lg:pb-28 lg:pt-28"
         >
-          <div className="mx-auto flex w-full max-w-6xl flex-col items-center">
-            <div ref={heroContentRef} className="flex flex-col items-center">
-              <motion.div {...revealProps(0.15)} id="hero-copy" className="max-w-[19rem] sm:max-w-4xl">
+          <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center">
+            <div ref={heroContentRef} className="relative z-10 flex flex-col items-center">
+              <motion.div {...revealProps(0.15)} id="hero-copy" className="max-w-[20rem] sm:max-w-[48rem]">
                 <AnimatedSwap
                   value={activeCopy.headline}
                   as="h1"
@@ -968,7 +1064,7 @@ function App() {
                 />
               </motion.div>
 
-              <motion.div {...revealProps(0.25)} className="mt-5 max-w-[22rem] sm:mt-6 sm:max-w-2xl" id="hero-context">
+              <motion.div {...revealProps(0.25)} className="mt-5 max-w-[23rem] sm:mt-6 sm:max-w-[38rem]" id="hero-context">
                 <AnimatedSwap
                   value={activeCopy.subheadline}
                   as="p"
@@ -978,7 +1074,7 @@ function App() {
 
               <motion.div
                 {...revealProps(0.35)}
-                className="mt-8 flex w-full max-w-sm flex-col items-center justify-center gap-3 sm:mt-10 sm:max-w-none sm:flex-row sm:gap-4"
+                className="mt-8 flex w-full max-w-sm flex-col items-center justify-center gap-3 sm:mt-9 sm:max-w-none sm:flex-row sm:gap-4"
               >
                 <WaitlistButton
                   label={activeCopy.primaryCta}
@@ -994,7 +1090,7 @@ function App() {
                 </button>
               </motion.div>
 
-              <motion.div {...revealProps(0.4)} id="hero-note" className="mt-4 max-w-[18rem] sm:max-w-none">
+              <motion.div {...revealProps(0.4)} id="hero-note" className="mt-5 max-w-[21rem] sm:max-w-xl">
                 <AnimatedSwap
                   value={activeCopy.finePrint}
                   as="p"
@@ -1003,288 +1099,10 @@ function App() {
               </motion.div>
             </div>
 
-            <div ref={heroPhoneRef} className="relative mx-auto mt-14 w-full max-w-[250px] sm:mt-20 sm:max-w-[280px]">
-              <motion.div
-                initial={{ opacity: 0, x: 14, y: -8 }}
-                animate={{ opacity: 1, x: 0, y: 0, transition: { duration: 0.65, delay: 0.95, ease } }}
-                className="pointer-events-none absolute left-full top-1 z-20 ml-10 hidden lg:flex lg:flex-col lg:items-end xl:top-3 xl:ml-14"
-              >
-                <span className="whitespace-nowrap text-xs font-normal tracking-[0.01em] text-[#6E6E73]/84">
-                  {activeCopy.phone.annotation}
-                </span>
-                <svg
-                  className="-mt-0.5"
-                  width="118"
-                  height="56"
-                  viewBox="0 0 118 56"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M106 11C90 11 74 14 61 22C46 31 32 39 17 45"
-                    stroke="rgba(110,110,115,0.62)"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M22 40L16 45L24 47"
-                    stroke="rgba(110,110,115,0.62)"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </motion.div>
-
-              <div className="pointer-events-none absolute inset-x-[-20%] top-[10%] h-[64%] rounded-full bg-[radial-gradient(circle_at_center,rgba(120,200,120,0.20),rgba(247,220,118,0.14)_36%,rgba(255,255,255,0)_70%)] blur-[60px]" />
-              <div className="pointer-events-none absolute inset-x-[6%] bottom-[-11%] h-20 rounded-full bg-[#1D1D1F]/[0.12] blur-[34px]" />
-              <div className="pointer-events-none absolute inset-x-[18%] bottom-[-6%] h-9 rounded-full bg-[#1D1D1F]/[0.10] blur-[18px]" />
-              <motion.div
-                id="hero-phone"
-                className="w-full"
-                initial={{ opacity: 0, y: 60 }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                  transition: { duration: 1.2, delay: 0.5, ease },
-                }}
-              >
-                <div className="rounded-[42px] border border-black/[0.12] bg-[linear-gradient(180deg,#24231F_0%,#171611_100%)] p-[11px] shadow-[0_62px_124px_rgba(0,0,0,0.24)] antialiased [text-rendering:optimizeLegibility] [-webkit-font-smoothing:antialiased] [-moz-osx-font-smoothing:grayscale]">
-                  <div className="relative flex aspect-[9/19.5] flex-col overflow-hidden rounded-[31px] bg-[linear-gradient(180deg,#FBF8EC_0%,#FFFDF6_100%)]">
-                    <div className="pointer-events-none absolute inset-x-0 top-0 h-56 bg-[radial-gradient(circle_at_50%_8%,rgba(255,233,162,0.96),rgba(221,237,187,0.74)_34%,rgba(251,248,236,0)_78%)]" />
-                    <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[linear-gradient(180deg,rgba(33,65,28,0.30)_0%,rgba(65,102,49,0.18)_32%,rgba(255,255,255,0)_100%)]" />
-                    <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-[linear-gradient(180deg,rgba(29,63,26,0.32)_0%,rgba(29,63,26,0.10)_58%,rgba(29,63,26,0)_100%)]" />
-                    <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-40 overflow-hidden">
-                      <div className="absolute -left-[4.8rem] -top-[5.8rem] h-44 w-44 rotate-[-14deg] rounded-[42%_58%_44%_56%/62%_42%_58%_38%] bg-[#335A2F]/14 blur-[10px]" />
-                      <div className="absolute right-[-2.4rem] -top-[5.4rem] h-44 w-44 rotate-[16deg] rounded-[44%_56%_50%_50%/66%_46%_54%_34%] bg-[#2D5C2A]/16 blur-[10px]" />
-                    </div>
-
-                    <div className="relative z-10 px-4 pt-4">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2.5 rounded-full bg-white/58 px-2.5 py-1.5 shadow-[0_12px_24px_rgba(87,120,56,0.08)]">
-                          <motion.div
-                            className="h-9 w-9 overflow-hidden rounded-full ring-2 ring-[#F5E6A4]/80"
-                            initial={{ opacity: 0, scale: 0.92 }}
-                            animate={{ opacity: 1, scale: 1, transition: { duration: 0.45, delay: 0.82, ease } }}
-                          >
-                            <img
-                              src="/fred-avatar-1.png"
-                              alt="Fred avatar"
-                              className="h-full w-full object-cover object-center"
-                            />
-                          </motion.div>
-                          <div className="text-left">
-                            <div className="text-[11px] font-medium leading-none text-[#47633A]">{activeCopy.phone.greeting}</div>
-                            <div className="mt-1 text-[11px] font-semibold leading-none text-[#1E4E2E]">
-                              {activeCopy.phone.mode}
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#E8F4DA]/85 text-[#2E5B2E] shadow-[0_8px_18px_rgba(87,120,56,0.08)]">
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                            <path
-                              d="M12 21C12 21 18 17.4 18 11V7.5L12 5L6 7.5V11C6 17.4 12 21 12 21Z"
-                              stroke="currentColor"
-                              strokeWidth="1.7"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="relative z-10 mx-3 mt-4 rounded-[30px] bg-[linear-gradient(145deg,#1E6A47_0%,#1D6B46_48%,#2F7E58_100%)] px-5 py-4 text-left shadow-[0_18px_34px_rgba(33,94,63,0.18)]">
-                      <div className="pointer-events-none absolute inset-x-5 top-3 h-10 rounded-full bg-white/10 blur-md" />
-                      <div className="flex items-start justify-between gap-3">
-                        <div>
-                          <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#C8E6B7]">
-                            {activeCopy.phone.bankLabel}
-                          </div>
-                          <motion.div
-                            className="mt-2 text-[28px] font-bold leading-none tracking-tight text-white"
-                            initial={{ opacity: 0, y: 8 }}
-                            animate={{ opacity: 1, y: 0, transition: { duration: 0.45, delay: 0.92, ease } }}
-                          >
-                            €12.50
-                          </motion.div>
-                        </div>
-
-                        <div className="inline-flex items-center rounded-full bg-[#88B987]/26 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white/90">
-                          {activeCopy.phone.locked}
-                        </div>
-                      </div>
-
-                      <div className="mt-5 flex items-center justify-between gap-3">
-                        <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-2 text-[11px] font-medium text-[#EAF4D7]">
-                          <span className="text-[14px]">🍌</span>
-                          {`35 ${activeCopy.phone.bananasSaved}`}
-                        </div>
-                        <button
-                          type="button"
-                          className="rounded-full bg-[#FFD65C] px-4 py-2 text-[11px] font-semibold text-[#355327]"
-                        >
-                          {activeCopy.phone.details}
-                        </button>
-                      </div>
-                    </div>
-
-                    <div className="relative z-10 mx-3 mt-4 rounded-[32px] bg-[linear-gradient(180deg,#FFF8DD_0%,#FFFDF0_100%)] px-5 py-5 text-left shadow-[0_26px_46px_rgba(199,179,97,0.20)] ring-1 ring-[#F4E7B1]/70">
-                      <div className="flex items-start justify-between gap-3">
-                        <div>
-                          <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#6C8A45]">
-                            {activeCopy.phone.lessonLabel}
-                          </div>
-                          <div className="mt-2 text-[17px] font-semibold leading-tight text-[#1D1D1F]">
-                            {activeCopy.phone.lessonTitle}
-                          </div>
-                        </div>
-                        <motion.div
-                          className="flex h-11 w-11 items-center justify-center rounded-full bg-[#DDF2C6] text-[#3F6E30] shadow-[0_12px_20px_rgba(115,158,76,0.12)]"
-                          animate={{ y: [0, -2, 0] }}
-                          transition={{ duration: 2.6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-                        >
-                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                            <path
-                              d="M4 6.5C4 5.67 4.67 5 5.5 5H11V19H5.5C4.67 19 4 18.33 4 17.5V6.5Z"
-                              stroke="currentColor"
-                              strokeWidth="1.7"
-                              strokeLinejoin="round"
-                            />
-                            <path
-                              d="M20 6.5C20 5.67 19.33 5 18.5 5H13V19H18.5C19.33 19 20 18.33 20 17.5V6.5Z"
-                              stroke="currentColor"
-                              strokeWidth="1.7"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        </motion.div>
-                      </div>
-
-                      <div className="mt-5 flex items-center justify-between text-[11px] font-medium text-[#567243]">
-                        <span>{activeCopy.phone.progressLabel}</span>
-                        <span>78%</span>
-                      </div>
-                      <div className="mt-2 h-3.5 rounded-full bg-[#ECE5C6]">
-                        <motion.div
-                          className="h-3.5 rounded-full bg-[linear-gradient(90deg,#1D7B56_0%,#4FA866_68%,#8BCE69_100%)]"
-                          initial={{ width: 0 }}
-                          animate={{ width: "78%", transition: { duration: 0.8, delay: 1, ease: "easeOut" } }}
-                        />
-                      </div>
-
-                      <motion.button
-                        type="button"
-                        className="mt-5 w-full rounded-full bg-[#1F6E49] py-3.5 text-center text-[14px] font-semibold text-white shadow-[0_16px_30px_rgba(31,110,73,0.22)] transition-shadow duration-200 hover:shadow-[0_18px_32px_rgba(31,110,73,0.24)]"
-                        animate={{
-                          scale: [1, 1.02, 1],
-                          boxShadow: [
-                            "0 16px 30px rgba(31,110,73,0.22)",
-                            "0 19px 34px rgba(31,110,73,0.26)",
-                            "0 16px 30px rgba(31,110,73,0.22)",
-                          ],
-                        }}
-                        transition={{
-                          duration: 2.8,
-                          delay: 1.15,
-                          repeat: Number.POSITIVE_INFINITY,
-                          repeatDelay: 1.3,
-                          ease: "easeInOut",
-                        }}
-                      >
-                        {activeCopy.phone.cta}
-                      </motion.button>
-                    </div>
-
-                    <div className="mx-3 mt-4 grid grid-cols-[1.05fr_0.95fr] gap-3">
-                      <div className="rounded-[26px] bg-[linear-gradient(180deg,#FFE08A_0%,#FFD965_100%)] px-4 py-4 text-left shadow-[0_16px_28px_rgba(245,198,74,0.14)]">
-                        <motion.div
-                          className="flex h-12 w-12 items-center justify-center rounded-full bg-[#FFF2BF] text-[22px] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]"
-                          initial={{ y: 0 }}
-                          animate={{ y: [0, -4, 0] }}
-                          transition={{ duration: 0.5, delay: 1.05, ease: "easeOut" }}
-                        >
-                          ⭐
-                        </motion.div>
-                        <div className="mt-4 text-[15px] font-semibold text-[#55411C]">{activeCopy.phone.streakTitle}</div>
-                        <div className="mt-1 text-[11px] font-medium text-[#775D22]">{activeCopy.phone.streakSubtitle}</div>
-                      </div>
-
-                      <div className="rounded-[26px] bg-[linear-gradient(180deg,#F6F1DF_0%,#F2EDDE_100%)] px-4 py-4 text-left shadow-[0_10px_20px_rgba(15,23,42,0.035)]">
-                        <div className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#D8EDC6] text-[#2E8A54]">
-                          <span className="text-[15px]">$</span>
-                        </div>
-                        <div className="mt-4 text-[14px] font-semibold text-[#3A4530]">{activeCopy.phone.rewards}</div>
-                        <div className="mt-2 text-[11px] leading-relaxed text-[#6E6E73]">
-                          {activeCopy.phone.nextReward}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="mt-auto px-3 pb-4 pt-4">
-                      <div className="flex items-center justify-between rounded-[26px] bg-[#EAF7E6]/92 px-4 py-3 text-[#476B3D] shadow-[0_10px_22px_rgba(87,120,56,0.05)]">
-                        <div className="flex flex-col items-center gap-1 text-[10px] font-semibold">
-                          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#147A58] text-white">
-                            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                              <path
-                                d="M4 10.5L12 4L20 10.5V19A1 1 0 0 1 19 20H15V14H9V20H5A1 1 0 0 1 4 19V10.5Z"
-                                stroke="currentColor"
-                                strokeWidth="1.7"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          </div>
-                          {activeCopy.phone.nav.home}
-                        </div>
-                        <div className="flex flex-col items-center gap-1 text-[10px] font-medium text-[#567A49]">
-                          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/70">
-                            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                              <path
-                                d="M4 6.5C4 5.67 4.67 5 5.5 5H11V19H5.5C4.67 19 4 18.33 4 17.5V6.5Z"
-                                stroke="currentColor"
-                                strokeWidth="1.7"
-                                strokeLinejoin="round"
-                              />
-                              <path
-                                d="M20 6.5C20 5.67 19.33 5 18.5 5H13V19H18.5C19.33 19 20 18.33 20 17.5V6.5Z"
-                                stroke="currentColor"
-                                strokeWidth="1.7"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          </div>
-                          {activeCopy.phone.nav.lessons}
-                        </div>
-                        <div className="flex flex-col items-center gap-1 text-[10px] font-medium text-[#567A49]">
-                          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/70">
-                            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                              <path
-                                d="M7 8H17M7 12H15M7 16H12"
-                                stroke="currentColor"
-                                strokeWidth="1.7"
-                                strokeLinecap="round"
-                              />
-                              <rect
-                                x="4"
-                                y="5"
-                                width="16"
-                                height="14"
-                                rx="3"
-                                stroke="currentColor"
-                                strokeWidth="1.7"
-                              />
-                            </svg>
-                          </div>
-                          {activeCopy.phone.nav.bank}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
+            <div className="pointer-events-none absolute right-[-12%] top-[14%] h-[52%] w-[62%] rounded-full bg-[radial-gradient(circle_at_center,rgba(112,161,234,0.14),rgba(181,211,171,0.10)_36%,rgba(255,255,255,0)_74%)] blur-[76px]" />
+            <div className="pointer-events-none absolute right-[4%] top-[38%] h-56 w-[54%] rounded-full bg-[radial-gradient(circle_at_center,rgba(255,224,167,0.18),rgba(255,255,255,0)_72%)] blur-[82px]" />
+            <div className="pointer-events-none absolute left-[10%] top-[18%] h-28 w-28 rounded-full bg-[#DDE8F8]/42 blur-[42px]" />
+            <div className="pointer-events-none absolute right-[10%] top-[58%] h-36 w-36 rounded-full bg-[#E8F1D7]/48 blur-[56px]" />
           </div>
 
           <motion.div
