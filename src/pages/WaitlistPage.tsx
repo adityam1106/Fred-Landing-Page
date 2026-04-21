@@ -80,6 +80,12 @@ export default function WaitlistPage() {
   const [emailError, setEmailError] = useState("");
 
   const content = copy[language];
+  const statusTitle =
+    submitState === "success"
+      ? content.successTitle
+      : submitState === "duplicate"
+        ? content.duplicate
+        : content.genericError;
 
   useEffect(() => {
     const nextLanguage = inferInitialLanguage(searchParams);
@@ -292,14 +298,8 @@ export default function WaitlistPage() {
 
               {submitState !== "idle" && message ? (
                 <div aria-live="polite" className={`rounded-[22px] border px-4 py-4 text-[14px] leading-relaxed ${statusTone}`}>
-                  <div className="font-semibold">
-                    {submitState === "success"
-                      ? content.successTitle
-                      : submitState === "duplicate"
-                        ? content.duplicate
-                        : content.genericError}
-                  </div>
-                  {submitState === "success" ? <div className="mt-1">{message}</div> : null}
+                  <div className="font-semibold">{statusTitle}</div>
+                  {message !== statusTitle ? <div className="mt-1">{message}</div> : null}
                 </div>
               ) : null}
 
