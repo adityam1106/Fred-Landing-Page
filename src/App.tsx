@@ -1,6 +1,6 @@
 /**
  * Install:
- * npm i react@18 react-dom@18 framer-motion lenis gsap @gsap/react
+ * npm i react@18 react-dom@18 framer-motion gsap @gsap/react
  * npm i -D typescript vite @vitejs/plugin-react @types/react @types/react-dom tailwindcss @tailwindcss/vite
  */
 
@@ -8,8 +8,6 @@ import { useGSAP } from "@gsap/react";
 import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Lenis from "lenis";
-import "lenis/dist/lenis.css";
 import {
   Suspense,
   lazy,
@@ -702,11 +700,10 @@ const navLinks = [
 ] as const;
 
 const revealProps = (delay = 0) => ({
-  initial: { opacity: 0, y: 40, filter: "blur(6px)" },
+  initial: { opacity: 0, y: 32 },
   animate: {
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
     transition: { duration: 0.7, delay, ease },
   },
 });
@@ -727,17 +724,15 @@ const AnimatedSwap = memo(function AnimatedSwap({
       <AnimatePresence initial={false} mode="wait">
         <motion.div
           key={value}
-          initial={{ opacity: 0, y: 40, filter: "blur(6px)" }}
+          initial={{ opacity: 0, y: 32 }}
           animate={{
             opacity: 1,
             y: 0,
-            filter: "blur(0px)",
             transition: { duration: 0.7, ease },
           }}
           exit={{
             opacity: 0,
-            y: -40,
-            filter: "blur(6px)",
+            y: -24,
             transition: { duration: 0.35, ease },
           }}
         >
@@ -755,17 +750,15 @@ const AnimatedButtonLabel = memo(function AnimatedButtonLabel({ value }: { value
         <motion.span
           key={value}
           className="block"
-          initial={{ opacity: 0, y: 40, filter: "blur(6px)" }}
+          initial={{ opacity: 0, y: 32 }}
           animate={{
             opacity: 1,
             y: 0,
-            filter: "blur(0px)",
             transition: { duration: 0.7, ease },
           }}
           exit={{
             opacity: 0,
-            y: -40,
-            filter: "blur(6px)",
+            y: -24,
             transition: { duration: 0.35, ease },
           }}
         >
@@ -823,7 +816,6 @@ function App() {
   const [language, setLanguage] = useState<Language>("en");
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const lenisRef = useRef<Lenis | null>(null);
   const scrolledRef = useRef(false);
   const heroRef = useRef<HTMLElement | null>(null);
   const heroContentRef = useRef<HTMLDivElement | null>(null);
@@ -841,30 +833,6 @@ function App() {
     }),
     [activeCopy],
   );
-
-  useEffect(() => {
-    const lenis = new Lenis({
-      lerp: 0.1,
-      smoothWheel: true,
-    });
-
-    lenisRef.current = lenis;
-
-    let frameId = 0;
-
-    const raf = (time: number) => {
-      lenis.raf(time);
-      frameId = window.requestAnimationFrame(raf);
-    };
-
-    frameId = window.requestAnimationFrame(raf);
-
-    return () => {
-      window.cancelAnimationFrame(frameId);
-      lenis.destroy();
-      lenisRef.current = null;
-    };
-  }, []);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const nextScrolled = latest > 80;
@@ -889,7 +857,6 @@ function App() {
     () => {
       const hero = heroRef.current;
       const heroContent = heroContentRef.current;
-      const lenis = lenisRef.current;
 
       if (!hero || !heroContent) {
         return;
@@ -899,33 +866,31 @@ function App() {
         return;
       }
 
-      // Lenis eases the page scroll, so we ping ScrollTrigger from the same scroll updates.
-      const syncScrollTrigger = () => ScrollTrigger.update();
-      lenis?.on("scroll", syncScrollTrigger);
+      const mm = gsap.matchMedia();
 
-      // Keep the hero text drifting gently with scroll for a little depth.
-      const timeline = gsap.timeline({
-        defaults: { ease: "none" },
-        scrollTrigger: {
-          trigger: hero,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        },
+      mm.add("(min-width: 1024px)", () => {
+        const timeline = gsap.timeline({
+          defaults: { ease: "none" },
+          scrollTrigger: {
+            trigger: hero,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+
+        timeline.to(
+          heroContent,
+          {
+            y: -36,
+            force3D: true,
+          },
+          0,
+        );
       });
 
-      timeline.to(
-        heroContent,
-        {
-          y: -52,
-        },
-        0,
-      );
-
-      ScrollTrigger.refresh();
-
       return () => {
-        lenis?.off("scroll", syncScrollTrigger);
+        mm.revert();
       };
     },
     { scope: heroRef, dependencies: [prefersReducedMotion], revertOnUpdate: true },
@@ -936,9 +901,18 @@ function App() {
   }, [language]);
 
   const scrollToTarget = useCallback((target: string) => {
-    lenisRef.current?.scrollTo(target, { offset: -72 });
+    const element = document.querySelector<HTMLElement>(target);
+
+    if (element) {
+      const nextTop = element.getBoundingClientRect().top + window.scrollY - 72;
+      window.scrollTo({
+        top: nextTop,
+        behavior: prefersReducedMotion ? "auto" : "smooth",
+      });
+    }
+
     setMenuOpen(false);
-  }, []);
+  }, [prefersReducedMotion]);
 
   return (
     <div className="min-h-screen bg-white text-[#1D1D1F]" style={{ fontFamily: fontStack }}>
@@ -1109,11 +1083,10 @@ function App() {
 
           <motion.div
             className="absolute bottom-5 left-1/2 -translate-x-1/2 sm:bottom-8"
-            initial={{ opacity: 0, y: 40, filter: "blur(6px)" }}
+            initial={{ opacity: 0, y: 32 }}
             animate={{
               opacity: 1,
               y: 0,
-              filter: "blur(0px)",
               transition: { duration: 0.7, delay: 0.7, ease },
             }}
           >

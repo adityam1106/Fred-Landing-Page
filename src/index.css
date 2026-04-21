@@ -2,6 +2,8 @@
 
 html {
   background: #ffffff;
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px;
 }
 
 body {
@@ -18,4 +20,10 @@ body {
 
 button {
   font: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }

@@ -38,11 +38,10 @@ function LessonShowcase({ content }: { content: LessonShowcaseContent }) {
               className={`cursor-default rounded-[28px] border border-white/[0.08] bg-white/[0.06] p-5 transition-all duration-300 hover:bg-white/[0.10] sm:p-6 ${
                 index === 0 || index === 3 ? "lg:col-span-7" : "lg:col-span-5"
               }`}
-              initial={{ opacity: 0, y: 40, filter: "blur(6px)" }}
+              initial={{ opacity: 0, y: 28 }}
               whileInView={{
                 opacity: 1,
                 y: 0,
-                filter: "blur(0px)",
                 transition: {
                   duration: 0.7,
                   delay: index * 0.1,

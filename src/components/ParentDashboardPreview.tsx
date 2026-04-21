@@ -50,11 +50,10 @@ const ease = [0.25, 0.1, 0.25, 1] as const;
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const fadeUp = {
-  initial: { opacity: 0, y: 40, filter: "blur(6px)" },
+  initial: { opacity: 0, y: 32 },
   whileInView: {
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
     transition: { duration: 0.7, ease },
   },
   viewport: { once: true, amount: 0.2 },
@@ -71,11 +70,10 @@ const dashboardContainer = {
 } as const;
 
 const dashboardItem = {
-  hidden: { opacity: 0, y: 40, filter: "blur(6px)" },
+  hidden: { opacity: 0, y: 32 },
   visible: {
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
     transition: { duration: 0.7, ease },
   },
 } as const;
@@ -124,35 +122,43 @@ function ParentDashboardPreview({
         return;
       }
 
-      const timeline = gsap.timeline({
-        defaults: { ease: "none" },
-        scrollTrigger: {
-          trigger: section,
-          start: "top 80%",
-          end: "bottom top",
-          scrub: true,
-        },
+      const mm = gsap.matchMedia();
+
+      mm.add("(min-width: 1024px)", () => {
+        const timeline = gsap.timeline({
+          defaults: { ease: "none" },
+          scrollTrigger: {
+            trigger: section,
+            start: "top 80%",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+
+        timeline.to(
+          text,
+          {
+            y: -18,
+            force3D: true,
+          },
+          0,
+        );
+
+        timeline.to(
+          mockup,
+          {
+            y: -28,
+            rotation: -0.3,
+            transformOrigin: "50% 18%",
+            force3D: true,
+          },
+          0,
+        );
       });
 
-      timeline.to(
-        text,
-        {
-          y: -28,
-          force3D: true,
-        },
-        0,
-      );
-
-      timeline.to(
-        mockup,
-        {
-          y: -54,
-          rotation: -0.6,
-          transformOrigin: "50% 18%",
-          force3D: true,
-        },
-        0,
-      );
+      return () => {
+        mm.revert();
+      };
     },
     { scope: sectionRef, dependencies: [prefersReducedMotion], revertOnUpdate: true },
   );

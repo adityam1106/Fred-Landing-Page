@@ -33,11 +33,10 @@ function HowItWorks({ content }: { content: HowItWorksContent }) {
               className={`relative flex flex-col gap-4 overflow-hidden rounded-3xl border border-black/[0.04] bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.04)] sm:p-7 lg:p-8 ${
                 index === 1 ? "md:translate-y-8" : index === 2 ? "md:translate-y-4" : ""
               }`}
-              initial={{ opacity: 0, y: 40, filter: "blur(6px)" }}
+              initial={{ opacity: 0, y: 28 }}
               whileInView={{
                 opacity: 1,
                 y: 0,
-                filter: "blur(0px)",
                 transition: {
                   duration: 0.7,
                   delay: index * 0.12,
