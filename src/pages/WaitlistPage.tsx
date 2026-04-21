@@ -23,6 +23,13 @@ const copy = {
       "We’ll only use your details for Fred waitlist updates. No spam, no resale, and you can opt out anytime.",
     aside:
       "A simple, first-party signup so you hear from Fred directly when access opens.",
+    trustTitle: "Why families trust this form",
+    trustPoints: [
+      "We only ask for your name and email.",
+      "Submissions go to Fred directly over HTTPS.",
+      "Access to waitlist entries is restricted to an internal admin view.",
+    ],
+    privacyLinkLabel: "Read the Privacy Policy",
     successTitle: "You're on the list.",
     successBody: "We’ll be in touch when Fred launches.",
     duplicate: "This email is already registered.",
@@ -46,6 +53,13 @@ const copy = {
       "Wir nutzen deine Angaben nur für Updates zur Fred-Warteliste. Kein Spam, kein Weiterverkauf, jederzeit abmeldbar.",
     aside:
       "Ein einfacher, direkter Signup, damit du Fred-Updates ohne Drittanbieter bekommst.",
+    trustTitle: "Warum Familien diesem Formular vertrauen",
+    trustPoints: [
+      "Wir fragen nur nach deinem Namen und deiner E-Mail-Adresse.",
+      "Eingaben gehen direkt per HTTPS an Fred.",
+      "Der Zugriff auf Wartelisteneinträge ist auf eine interne Admin-Ansicht beschränkt.",
+    ],
+    privacyLinkLabel: "Datenschutzerklärung lesen",
     successTitle: "Du stehst auf der Liste.",
     successBody: "Wir melden uns, sobald Fred startet.",
     duplicate: "Diese E-Mail ist bereits registriert.",
@@ -229,6 +243,19 @@ export default function WaitlistPage() {
               <div className="mt-3 text-[15px] leading-relaxed text-[#1D1D1F]">
                 {content.aside}
               </div>
+              <div className="mt-5 rounded-[22px] bg-white p-4">
+                <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#6E6E73]">
+                  {content.trustTitle}
+                </div>
+                <ul className="mt-3 space-y-2 text-[14px] leading-relaxed text-[#4B5563]">
+                  {content.trustPoints.map((point) => (
+                    <li key={point} className="flex items-start gap-2">
+                      <span className="mt-[0.45rem] h-1.5 w-1.5 rounded-full bg-[#0071E3]" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </motion.section>
 
@@ -306,6 +333,13 @@ export default function WaitlistPage() {
               <p className="max-w-[32rem] text-[12px] leading-relaxed text-[#6E6E73] sm:text-[13px]">
                 {content.privacy}
               </p>
+
+              <Link
+                to={`/privacy?lang=${language}`}
+                className="inline-flex text-[13px] font-medium text-[#0071E3] transition-colors duration-200 hover:text-[#005BB8]"
+              >
+                {content.privacyLinkLabel}
+              </Link>
             </form>
           </motion.section>
         </div>

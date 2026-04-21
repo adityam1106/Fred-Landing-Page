@@ -1,11 +1,13 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 type FooterContent = {
   left: string;
   madeWith: string;
   words: ReadonlyArray<string>;
   location: string;
+  privacyLabel: string;
 };
 
 function Footer({ content }: { content: FooterContent }) {
@@ -45,7 +47,12 @@ function Footer({ content }: { content: FooterContent }) {
             </span>
           </div>
 
-          <div className="font-mono text-[10px] text-[#6E6E73]/40 sm:text-[11px]">{content.location}</div>
+          <div className="flex items-center gap-3 font-mono text-[10px] text-[#6E6E73]/60 sm:text-[11px]">
+            <span>{content.location}</span>
+            <Link to="/privacy" className="text-[#1D1D1F] transition-colors duration-200 hover:text-[#0071E3]">
+              {content.privacyLabel}
+            </Link>
+          </div>
         </div>
 
       </div>

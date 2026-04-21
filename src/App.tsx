@@ -362,6 +362,7 @@ const copy = {
       madeWith: "Made with",
       words: ["caffeine", "deadlines", "curiosity", "Ctrl+Z", "impostor syndrome"],
       location: "Mainz, DE · 49°N 8°E",
+      privacyLabel: "Privacy Policy",
     },
   },
   de: {
@@ -689,6 +690,7 @@ const copy = {
       madeWith: "Gemacht mit",
       words: ["Koffein", "Deadlines", "Neugier", "Ctrl+Z", "Impostor-Syndrom"],
       location: "Mainz, DE · 49°N 8°E",
+      privacyLabel: "Datenschutz",
     },
   },
 } as const;
