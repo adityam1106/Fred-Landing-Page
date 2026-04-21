@@ -81,6 +81,16 @@ export async function handleWaitlistSubmission({
       };
     }
 
+    if (error instanceof Error && error.message === "DATABASE_URL is required in production.") {
+      return {
+        statusCode: 503,
+        body: {
+          status: "error",
+          message: "Waitlist is not configured yet.",
+        },
+      };
+    }
+
     console.error("Waitlist submission failed", error);
 
     return {

@@ -26,6 +26,37 @@ function canUseLocalFallback() {
   return !process.env.VERCEL && process.env.NODE_ENV !== "production";
 }
 
+let schemaReadyPromise: Promise<void> | null = null;
+
+async function ensureDatabaseSchema() {
+  if (schemaReadyPromise) {
+    return schemaReadyPromise;
+  }
+
+  schemaReadyPromise = (async () => {
+    await prisma.$executeRawUnsafe(`
+      CREATE TABLE IF NOT EXISTS "WaitlistEntry" (
+        "id" TEXT NOT NULL PRIMARY KEY,
+        "name" TEXT NOT NULL,
+        "email" TEXT NOT NULL UNIQUE,
+        "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+
+    await prisma.$executeRawUnsafe(`
+      CREATE INDEX IF NOT EXISTS "WaitlistEntry_createdAt_idx"
+      ON "WaitlistEntry" ("createdAt");
+    `);
+  })();
+
+  try {
+    await schemaReadyPromise;
+  } catch (error) {
+    schemaReadyPromise = null;
+    throw error;
+  }
+}
+
 async function ensureFallbackFile() {
   await fs.mkdir(fallbackDir, { recursive: true });
 
@@ -56,6 +87,8 @@ export async function createWaitlistEntry({
   email: string;
 }) {
   if (hasDatabaseUrl()) {
+    await ensureDatabaseSchema();
+
     return prisma.waitlistEntry.create({
       data: {
         name,
