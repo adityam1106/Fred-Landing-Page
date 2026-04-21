@@ -1,7 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "vite",
-  "buildCommand": "prisma generate && prisma migrate deploy && tsc -b && vite build",
+  "buildCommand": "npm run build",
   "rewrites": [
     {
       "source": "/:path((?!api/).*)",
