@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import App from "./App";
 import "./index.css";
+import AdminWaitlistPage from "./pages/AdminWaitlistPage";
 import WaitlistPage from "./pages/WaitlistPage";
 
 createRoot(document.getElementById("root")!).render(
@@ -10,6 +11,7 @@ createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
+        <Route path="/admin/waitlist" element={<AdminWaitlistPage />} />
         <Route path="/waitlist" element={<WaitlistPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

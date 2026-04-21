@@ -10,6 +10,8 @@ vite.config.d.ts
 
 vite-dev.log
 vite-dev.err.log
+prisma-studio.log
+prisma-studio.err.log
 
 .DS_Store
 Thumbs.db

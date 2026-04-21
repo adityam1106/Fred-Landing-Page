@@ -123,3 +123,25 @@ export async function createWaitlistEntry({
   await writeFallbackEntries(entries);
   return entry;
 }
+
+export async function listWaitlistEntries() {
+  if (hasDatabaseUrl()) {
+    await ensureDatabaseSchema();
+
+    return prisma.waitlistEntry.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+  }
+
+  if (!canUseLocalFallback()) {
+    throw new Error("DATABASE_URL is required in production.");
+  }
+
+  const entries = await readFallbackEntries();
+
+  return [...entries].sort((left, right) => {
+    return new Date(right.createdAt).getTime() - new Date(left.createdAt).getTime();
+  });
+}
