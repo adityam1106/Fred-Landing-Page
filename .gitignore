@@ -1,9 +1,12 @@
 node_modules/
 dist/
+dist-server/
 
 *.tsbuildinfo
 vite.config.js
 vite.config.d.ts
+.env
+.data/
 
 vite-dev.log
 vite-dev.err.log

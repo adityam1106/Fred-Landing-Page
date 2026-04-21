@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: fred-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: fred_waitlist
+      POSTGRES_USER: fred
+      POSTGRES_PASSWORD: fred_local_password
+    ports:
+      - "5433:5432"
+    volumes:
+      - fred-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fred -d fred_waitlist"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  fred-postgres-data:

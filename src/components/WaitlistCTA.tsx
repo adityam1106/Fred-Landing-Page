@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { TALLY_URL } from "./WaitlistButton";
+import { useNavigate } from "react-router-dom";
 
 type WaitlistCTAContent = {
   headline: string;
@@ -15,10 +15,11 @@ const ease = [0.25, 0.1, 0.25, 1] as const;
 function WaitlistCTA({ content }: { content: WaitlistCTAContent }) {
   const [email, setEmail] = useState("");
   const [shakeKey, setShakeKey] = useState(0);
+  const navigate = useNavigate();
 
   const handleSubmit = () => {
     if (email.trim()) {
-      window.open(TALLY_URL, "_blank");
+      navigate(`/waitlist?email=${encodeURIComponent(email.trim())}`);
       return;
     }
 

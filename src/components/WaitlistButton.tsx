@@ -1,4 +1,4 @@
-export const TALLY_URL = "https://tally.so/r/RGJpxQ";
+import { Link } from "react-router-dom";
 
 export default function WaitlistButton({
   label,
@@ -8,12 +8,11 @@ export default function WaitlistButton({
   className?: string;
 }) {
   return (
-    <button
-      type="button"
-      onClick={() => window.open(TALLY_URL, "_blank")}
+    <Link
+      to="/waitlist"
       className={className}
     >
       {label}
-    </button>
+    </Link>
   );
 }
